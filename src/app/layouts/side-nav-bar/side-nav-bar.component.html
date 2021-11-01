@@ -23,19 +23,21 @@
       opened
       class="sidenav"
     >
-      <mat-nav-list>
+      <mat-nav-list class="nav-list">
+        <mat-icon aria-hidden="false" aria-label="today icon">today</mat-icon>
         <a mat-list-item routerLink=".">
           {{ mainListTitle }}
         </a>
       </mat-nav-list>
-      <mat-nav-list>
+      <mat-nav-list class="nav-list">
+        <mat-icon aria-hidden="false" aria-label="today icon">task_alt</mat-icon>
         <a mat-list-item routerLink="/completed"> Completed Tasks </a>
       </mat-nav-list>
       <mat-divider></mat-divider>
-      <mat-nav-list>
+      <mat-nav-list *ngFor="let nav of fillerNav" class="nav-list">
+        <mat-icon aria-hidden="false" aria-label="today icon">list_alt</mat-icon>
         <a
           mat-list-item
-          *ngFor="let nav of fillerNav"
           routerLink="/{{ nav._id }}"
         >
           <div>{{ nav.title }}</div>
