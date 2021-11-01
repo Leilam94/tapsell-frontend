@@ -1,5 +1,6 @@
 <mat-card class="page-container">
   <div class="page-title-container">
+    <h1 class="page-title">{{ title }}</h1>
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu icon">
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -13,7 +14,6 @@
         <span>Edit List</span>
       </button>
     </mat-menu>
-    <h1 class="page-title">{{ title }}</h1>
   </div>
   <div *ngFor="let task of tasks">
     <app-task [task]="task" (getData)="getTasks()"> </app-task>

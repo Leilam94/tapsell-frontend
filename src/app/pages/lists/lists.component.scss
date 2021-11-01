@@ -4,6 +4,10 @@
 .page-title-container{
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+.page-title{
+  font-size: 28px;
 }
 .add-button{
   margin-top: 8px;

@@ -1,6 +1,9 @@
 <mat-card class="page-container">
   <h1 class="page-title">{{ title }}</h1>
   <div *ngFor="let task of completedTasks">
-    <app-completed-task [task]="task" (getData)="getTasks()"></app-completed-task>
+    <app-completed-task
+      [task]="task"
+      (getData)="getTasks()"
+    ></app-completed-task>
   </div>
 </mat-card>

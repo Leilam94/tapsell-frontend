@@ -62,9 +62,12 @@ export class ListsComponent implements OnInit {
         if (!data.error) {
           this.list = data;
           this.title = data.title;
+        } else{
+          this.router.navigateByUrl('/');
         }
       },
-      (err) => {}
+      (err) => {
+      }
     );
   }
   onDeleteList() {
