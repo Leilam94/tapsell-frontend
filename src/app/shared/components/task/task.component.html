@@ -1,0 +1,20 @@
+<div class="task-container">
+  <div class="task-details">
+    <mat-radio-button
+      [name]="task!.title"
+      [value]="task!.title"
+      (change)="onChangeSelectedTask(task)"
+      class="task-title"
+    >
+      {{ task!.title }}
+    </mat-radio-button>
+    <p class="task-description">{{ task!.description }}</p>
+    <mat-chip-list aria-label="date">
+      <mat-chip>{{ task!.date | date }}</mat-chip>
+    </mat-chip-list>
+  </div>
+  <div class="task-action-buttons">
+    <button mat-button color="primary" (click)="onEditTask(task)">edit</button>
+    <button mat-button color="accent" (click)="onDeleteTask(task!._id)">delete</button>
+  </div>
+</div>

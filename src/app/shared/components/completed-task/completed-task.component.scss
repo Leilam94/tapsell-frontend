@@ -1,0 +1,25 @@
+.task-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 48px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(231, 231, 231);
+}
+.task-details-icon {
+  display: flex;
+  align-items: center;
+  p {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    margin-left: 8px;
+    text-decoration-line: line-through;
+  }
+}
+.task-description,
+.task-date {
+  margin-top: 8px !important;
+  margin-left: 32px !important;
+  margin-bottom: 8px !important ;
+}

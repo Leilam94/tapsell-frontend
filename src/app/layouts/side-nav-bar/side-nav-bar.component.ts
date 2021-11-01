@@ -1,0 +1,59 @@
+import { Component, OnInit } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef } from '@angular/core';
+import { APIService } from './../../shared/services/api.service';
+
+export interface List {
+  _id: string;
+  title: string;
+}
+@Component({
+  selector: 'app-side-nav-bar',
+  templateUrl: './side-nav-bar.component.html',
+  styleUrls: ['./side-nav-bar.component.scss'],
+})
+export class SideNavBarComponent implements OnInit {
+  mobileQuery: MediaQueryList;
+  fillerNav: List[] = [];
+  mainListTitle: string = '';
+  mainListId: string = '';
+  private _mobileQueryListener: () => void;
+  constructor(
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private service: APIService
+  ) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+
+  ngOnInit(): void {
+    this.getMainList();
+  }
+  getMainList() {
+    this.service.get(`api/mainList`).subscribe(
+      (data) => {
+        if (!data.error) {
+          this.mainListTitle = data.title;
+          this.mainListId = data._id;
+          this.getLists();
+        }
+      },
+      (err) => {}
+    );
+  }
+  getLists() {
+    this.service.get(`api/lists`).subscribe(
+      (data) => {
+        if (!data.error) {
+          this.fillerNav = data.filter(
+            (list: List) => list._id !== this.mainListId
+          );
+        }
+      },
+      (err) => {}
+    );
+  }
+  onClickAddList() {}
+}

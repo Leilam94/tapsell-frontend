@@ -1,0 +1,10 @@
+<mat-card class="page-container">
+  <h1 class="page-title">{{ title }}</h1>
+  <div *ngFor="let task of tasks">
+    <app-task [task]="task" (getData)="getTasks()"> </app-task>
+  </div>
+  <button mat-button color="accent" (click)="onClickAddTask()" class="add-button">
+    <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
+    New Task
+  </button>
+</mat-card>

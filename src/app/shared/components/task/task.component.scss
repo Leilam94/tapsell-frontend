@@ -1,0 +1,15 @@
+.task-container {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 48px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(231, 231, 231);
+}
+.task-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.task-description {
+  margin-left: 30px;
+}
