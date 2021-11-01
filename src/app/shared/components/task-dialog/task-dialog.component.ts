@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { APIService } from './../../services/api.service';
 import { IList, ITask } from '../../../models';
-
+import {FormControl} from '@angular/forms';
 @Component({
   selector: 'app-task-dialog',
   templateUrl: './task-dialog.component.html',

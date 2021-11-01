@@ -21,7 +21,8 @@ export class ListsComponent implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private service: APIService,
-    private listService: ListService
+    private listService: ListService,
+    private router: Router
   ) {
     this.route.params.subscribe((params) => {
       this.listID = params['list'];
@@ -70,7 +71,8 @@ export class ListsComponent implements OnInit {
     this.service.delete(`api/lists/${this.listID}`).subscribe(
       (data) => {
         if (!data.error) {
-
+          this.listService.setLists();
+          this.router.navigateByUrl('/');
         }
       },
       (err) => {}
