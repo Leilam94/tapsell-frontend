@@ -40,3 +40,8 @@ h1.example-app-name {
 .sidenav{
   width: 300px;
 }
+
+::ng-deep .mat-list-item-content{
+  width: 100%;
+  justify-content: space-between;
+}

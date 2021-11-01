@@ -3,7 +3,7 @@
   <div *ngFor="let task of tasks">
     <app-task [task]="task" (getData)="getTasks()"> </app-task>
   </div>
-  <button mat-button color="accent" (click)="onClickAddTask()" class="add-button">
+  <button mat-button color="primary" (click)="onClickAddTask()" class="add-button">
     <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
     New Task
   </button>

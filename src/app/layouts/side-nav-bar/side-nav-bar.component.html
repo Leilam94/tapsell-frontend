@@ -6,10 +6,7 @@
       </button>
       <h1 class="example-app-name">To Do App</h1>
     </div>
-    <button
-      mat-mini-fab
-      aria-label="add icon button"
-    >
+    <button mat-mini-fab aria-label="add icon button">
       <mat-icon>add</mat-icon>
     </button>
   </mat-toolbar>
@@ -36,16 +33,19 @@
       </mat-nav-list>
       <mat-divider></mat-divider>
       <mat-nav-list>
-        <a mat-list-item *ngFor="let nav of fillerNav" routerLink="/{{nav._id}}">
-          {{ nav.title }}
+        <a
+          mat-list-item
+          *ngFor="let nav of fillerNav"
+          routerLink="/{{ nav._id }}"
+        >
+          <div>{{ nav.title }}</div>
         </a>
       </mat-nav-list>
-      <button mat-button color="accent" (click)="onClickAddList()">
+      <button mat-button color="primary" (click)="onClickAddList()">
         <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
         New List
       </button>
     </mat-sidenav>
-
     <mat-sidenav-content>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
