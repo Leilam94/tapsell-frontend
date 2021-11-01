@@ -28,7 +28,6 @@ export class TaskComponent implements OnInit {
       (res) => {
         if (!res.error) {
           // this.tableLoading = false;
-          console.log(res);
           this.getData.next();
         }
       },

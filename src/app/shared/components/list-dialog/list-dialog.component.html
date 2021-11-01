@@ -1,5 +1,5 @@
 <div mat-dialog-content>
-  <p>New List</p>
+  <p>{{title}}</p>
   <mat-form-field appearance="fill" class="form-field">
     <mat-label> title</mat-label>
     <input matInput [(ngModel)]="list.title" />
@@ -12,6 +12,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onSaveClick()" cdkFocusInitial>save</button>
-  <button mat-button (click)="onCancleClick()">cancle</button>
+  <button mat-button (click)="onSaveClick()" cdkFocusInitial>SAVE</button>
+  <button mat-button (click)="onCancleClick()">CANCLE</button>
 </div>

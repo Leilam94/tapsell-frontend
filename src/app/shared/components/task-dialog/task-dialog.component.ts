@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { APIService } from './../../services/api.service';
 import { IList, ITask } from '../../../models';
-import {FormControl} from '@angular/forms';
+
 @Component({
   selector: 'app-task-dialog',
   templateUrl: './task-dialog.component.html',
@@ -10,25 +10,47 @@ import {FormControl} from '@angular/forms';
 })
 export class TaskDialogComponent implements OnInit {
   options: Array<IList> = [];
+  mainListId: string = '';
+  title: string = '';
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public task: ITask,
     private service: APIService
   ) {
-    this.getLists();
+    this.getMainList();
+    if (!task._id) {
+      this.title = 'New Task';
+    } else {
+      this.title = 'Edit Task';
+    }
   }
 
   ngOnInit(): void {}
-  getLists() {
-    this.service.get(`api/lists`).subscribe(
+  getMainList() {
+    this.service.get(`api/mainList`).subscribe(
       (data) => {
         if (!data.error) {
-          this.options = data;
+          this.mainListId = data._id;
+          this.getAllLists();
         }
       },
       (err) => {}
     );
   }
+  getAllLists() {
+    this.service.get(`api/lists`).subscribe(
+      (data) => {
+        if (!data.error) {
+          this.options = data.filter(
+            (list: IList) =>
+              list._id === this.mainListId || list._id === this.task.list
+          );
+        }
+      },
+      (err) => {}
+    );
+  }
+
   onCancleClick() {
     this.dialogRef.close();
   }

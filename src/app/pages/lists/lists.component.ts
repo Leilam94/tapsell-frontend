@@ -49,7 +49,7 @@ export class ListsComponent implements OnInit {
       data: {
         title: '',
         description: '',
-        list: '',
+        list: this.listID,
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

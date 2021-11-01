@@ -6,18 +6,23 @@ import { IList } from './../../../models';
 @Component({
   selector: 'app-list-dialog',
   templateUrl: './list-dialog.component.html',
-  styleUrls: ['./list-dialog.component.scss']
+  styleUrls: ['./list-dialog.component.scss'],
 })
 export class ListDialogComponent implements OnInit {
-
+  title: string = '';
   constructor(
     public dialogRef: MatDialogRef<ListDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public list: IList,
     private service: APIService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
+    if (!list._id) {
+      this.title = 'New List';
+    } else {
+      this.title = 'Edit List';
+    }
   }
+
+  ngOnInit(): void {}
   onCancleClick() {
     this.dialogRef.close();
   }
