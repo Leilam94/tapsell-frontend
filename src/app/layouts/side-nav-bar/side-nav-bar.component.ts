@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
 import { APIService } from './../../shared/services/api.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ListDialogComponent } from './../../shared/components/list-dialog/list-dialog.component';
 
 export interface List {
   _id: string;
@@ -21,7 +23,8 @@ export class SideNavBarComponent implements OnInit {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private service: APIService
+    private service: APIService,
+    public dialog: MatDialog,
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -55,5 +58,17 @@ export class SideNavBarComponent implements OnInit {
       (err) => {}
     );
   }
-  onClickAddList() {}
+  onClickAddList() {
+    const dialogRef = this.dialog.open(ListDialogComponent, {
+      width: '350px',
+      data: {
+        title: '',
+        description: '',
+        list: ''
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getLists();
+    });
+  }
 }

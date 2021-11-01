@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ITask } from 'src/app/models';
-import { DialogComponent } from '../dialog/dialog.component';
 import { APIService } from './../../services/api.service';
 import { ToastMessageService } from './../../services/toast-message.service';
+import { TaskDialogComponent } from './../task-dialog/task-dialog.component';
 
 @Component({
   selector: 'app-task',
@@ -38,7 +38,7 @@ export class TaskComponent implements OnInit {
     );
   }
   onEditTask(task?: ITask) {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '350px',
       data: {
         _id: task!._id,

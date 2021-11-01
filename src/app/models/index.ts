@@ -11,6 +11,7 @@ export interface ITask {
   list?: string;
 }
 export interface IList {
-  _id: string;
+  _id?: string;
   title: string;
+  date?: string
 }

@@ -11,10 +11,10 @@ import { MatComponentsModule } from './mat-components/mat-components.module';
 import { DailyTasksComponent } from './pages/daily-tasks/daily-tasks.component';
 import { ListsComponent } from './pages/lists/lists.component';
 import { TaskComponent } from './shared/components/task/task.component';
-import { DialogComponent } from './shared/components/dialog/dialog.component';
 import { CompletedTasksComponent } from './pages/completed-tasks/completed-tasks.component';
 import { CompletedTaskComponent } from './shared/components/completed-task/completed-task.component';
 import { TaskDialogComponent } from './shared/components/task-dialog/task-dialog.component';
+import { ListDialogComponent } from './shared/components/list-dialog/list-dialog.component';
 
 
 
@@ -25,10 +25,10 @@ import { TaskDialogComponent } from './shared/components/task-dialog/task-dialog
     DailyTasksComponent,
     ListsComponent,
     TaskComponent,
-    DialogComponent,
     CompletedTasksComponent,
     CompletedTaskComponent,
-    TaskDialogComponent
+    TaskDialogComponent,
+    ListDialogComponent
   ],
   imports: [
     BrowserModule,

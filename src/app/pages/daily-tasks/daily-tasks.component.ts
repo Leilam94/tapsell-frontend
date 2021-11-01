@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
 import { ITask } from 'src/app/models';
-import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 import { APIService } from './../../shared/services/api.service';
 import { ToastMessageService } from './../../shared/services/toast-message.service';
+import { TaskDialogComponent } from './../../shared/components/task-dialog/task-dialog.component';
 
 @Component({
   selector: 'app-daily-tasks',
@@ -36,13 +35,12 @@ export class DailyTasksComponent implements OnInit {
   }
 
   onClickAddTask() {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '350px',
       data: {
         title: '',
         description: '',
-        list: '',
-        editMode:false
+        list: ''
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
