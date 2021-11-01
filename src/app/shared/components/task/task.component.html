@@ -3,7 +3,7 @@
     <mat-radio-button
       [name]="task!.title"
       [value]="task!.title"
-      (change)="onChangeSelectedTask(task)"
+      (change)="onCompleteTask(task)"
       class="task-title"
     >
       {{ task!.title }}
@@ -14,7 +14,19 @@
     </mat-chip-list>
   </div>
   <div class="task-action-buttons">
-    <button mat-button color="primary" (click)="onEditTask(task)">EDIT</button>
-    <button mat-button color="accent" (click)="onDeleteTask(task!._id)">DELETE</button>
+    <div class="task-action-buttons-grouped">
+      <button mat-button color="primary" (click)="onEditTask(task)">
+        EDIT
+      </button>
+      <button mat-button color="accent" (click)="onDeleteTask(task!._id)">
+        DELETE
+      </button>
+    </div>
+    <mat-checkbox
+      *ngIf="task!.list !== mainListId"
+      labelPosition="before"
+      (change)="onChangeCheckBox($event.checked,task!)"
+      >MOVE TO DAILY</mat-checkbox
+    >
   </div>
 </div>

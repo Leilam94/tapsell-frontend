@@ -9,7 +9,6 @@ import { IList, ITask } from '../../../models';
   styleUrls: ['./task-dialog.component.scss'],
 })
 export class TaskDialogComponent implements OnInit {
-  options: Array<IList> = [];
   mainListId: string = '';
   title: string = '';
   constructor(
@@ -17,7 +16,6 @@ export class TaskDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public task: ITask,
     private service: APIService
   ) {
-    this.getMainList();
     if (!task._id) {
       this.title = 'New Task';
     } else {
@@ -26,30 +24,6 @@ export class TaskDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-  getMainList() {
-    this.service.get(`api/mainList`).subscribe(
-      (data) => {
-        if (!data.error) {
-          this.mainListId = data._id;
-          this.getAllLists();
-        }
-      },
-      (err) => {}
-    );
-  }
-  getAllLists() {
-    this.service.get(`api/lists`).subscribe(
-      (data) => {
-        if (!data.error) {
-          this.options = data.filter(
-            (list: IList) =>
-              list._id === this.mainListId || list._id === this.task.list
-          );
-        }
-      },
-      (err) => {}
-    );
-  }
 
   onCancleClick() {
     this.dialogRef.close();

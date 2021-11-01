@@ -15,13 +15,16 @@ export class TaskComponent implements OnInit {
   @Output() getData = new EventEmitter<string>();
   subscription: any;
   isLoading = false;
+  mainListId = '';
   constructor(
     public dialog: MatDialog,
     private service: APIService,
     private toastService: ToastMessageService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getMainList();
+  }
 
   onDeleteTask(id: any) {
     this.service.delete(`api/tasks/${id}`).subscribe(
@@ -52,7 +55,7 @@ export class TaskComponent implements OnInit {
     });
   }
 
-  onChangeSelectedTask(task?: ITask) {
+  onCompleteTask(task?: ITask) {
     this.isLoading = true;
     if (task) {
       const bodyParams = { ...task, done: true };
@@ -63,6 +66,35 @@ export class TaskComponent implements OnInit {
             setTimeout(() => {
               this.getData.next();
               this.toastService.openSnackBar('Task Completed');
+            }, 1000);
+          }
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
+  }
+  getMainList() {
+    this.service.get(`api/mainList`).subscribe(
+      (data) => {
+        if (!data.error) {
+          this.mainListId = data._id;
+        }
+      },
+      (err) => {}
+    );
+  }
+  onChangeCheckBox(checked: boolean, task: ITask) {
+    if (checked) {
+      const bodyParams = { ...task, list: this.mainListId };
+      this.service.put<ITask>(`api/tasks/${task!._id}`, bodyParams).subscribe(
+        (res) => {
+          if (!res.error) {
+            // this.tableLoading = false;
+            setTimeout(() => {
+              this.getData.next();
+              this.toastService.openSnackBar('Task moved successfully');
             }, 1000);
           }
         },
