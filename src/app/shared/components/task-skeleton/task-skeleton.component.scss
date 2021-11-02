@@ -1,0 +1,10 @@
+.container {
+  padding-top: 48px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  &-task-detail{
+    display: flex;
+    align-items: center;
+  }
+}

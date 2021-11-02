@@ -15,16 +15,21 @@
       </button>
     </mat-menu>
   </div>
-  <div *ngFor="let task of tasks">
-    <app-task [task]="task" (getData)="getTasks()"> </app-task>
-  </div>
-  <button
-    mat-button
-    color="primary"
-    (click)="onAddTask()"
-    class="add-button"
-  >
-    <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
-    NEW TASK
-  </button>
+  <ng-container *ngIf="!isLoading; else loading">
+    <div *ngFor="let task of tasks">
+      <app-task [task]="task" (getData)="getTasks()"> </app-task>
+    </div>
+    <button
+      mat-button
+      color="primary"
+      (click)="onAddTask()"
+      class="add-button"
+    >
+      <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
+      NEW TASK
+    </button>
+  </ng-container>
+  <ng-template #loading>
+    <app-task-skeleton *ngFor="let number of [0,1,2,3,4]"></app-task-skeleton>
+  </ng-template>
 </div>

@@ -12,6 +12,7 @@ import { HandleServerErrorsService } from 'src/app/shared/services/handle-server
 export class CompletedTasksComponent implements OnInit {
   title = 'Completed Tasks';
   completedTasks: Array<ITask> = [];
+  isLoading:boolean = true;
   constructor(
     private service: APIService,
     private toastService: ToastMessageService,
@@ -25,6 +26,7 @@ export class CompletedTasksComponent implements OnInit {
     this.service.get('api/compeleted').subscribe(
       (data) => {
         if (!data.error) {
+          this.isLoading  = false;
           // this.tableLoading = false;
           this.completedTasks = data;
         }

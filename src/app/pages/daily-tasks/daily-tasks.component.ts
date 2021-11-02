@@ -15,6 +15,7 @@ export class DailyTasksComponent implements OnInit {
   listID: string = '';
   title: string = '';
   tasks: ITask[] = [];
+  isLoading:boolean = true;
   constructor(
     public dialog: MatDialog,
     private service: APIService,
@@ -41,27 +42,30 @@ export class DailyTasksComponent implements OnInit {
     );
   }
   getTasks() {
-    this.service.get(`api/tasks/query/${this.listID}`).subscribe(
-      (data) => {
-        if (!data.error) {
-          this.tasks = data.filter((task: ITask) => task.done !== true);
+    if (this.listID) {
+      this.service.get(`api/tasks/query/${this.listID}`).subscribe(
+        (data) => {
+          if (!data.error) {
+            this.isLoading = false;
+            this.tasks = data.filter((task: ITask) => task.done !== true);
+          }
+        },
+        (err) => {
+          this.toastService.openSnackBar(
+            this.errorService.getServerErrorMessage(err)
+          );
         }
-      },
-      (err) => {
-        this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
-        );
-      }
-    );
+      );
+    }
   }
 
-  onClickAddTask() {
+  onAddTask() {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '350px',
       data: {
         title: '',
         description: '',
-        list: this.listID
+        list: this.listID,
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

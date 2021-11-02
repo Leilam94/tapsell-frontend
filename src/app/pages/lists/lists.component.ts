@@ -19,6 +19,7 @@ export class ListsComponent implements OnInit {
   tasks: ITask[] = [];
   title = '';
   list?: IList;
+  isLoading: boolean = true;
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -26,7 +27,7 @@ export class ListsComponent implements OnInit {
     private toastService: ToastMessageService,
     private errorService: HandleServerErrorsService,
     private listService: ListService,
-    private router: Router,
+    private router: Router
   ) {
     this.route.params.subscribe((params) => {
       this.listID = params['list'];
@@ -40,6 +41,7 @@ export class ListsComponent implements OnInit {
     this.service.get(`api/tasks/query/${this.listID}`).subscribe(
       (data) => {
         if (!data.error) {
+          this.isLoading = false;
           this.tasks = data.filter((task: ITask) => task.done !== true);
         }
       },
@@ -70,7 +72,7 @@ export class ListsComponent implements OnInit {
         if (!data.error) {
           this.list = data;
           this.title = data.title;
-        } else{
+        } else {
           this.router.navigateByUrl('/');
         }
       },
