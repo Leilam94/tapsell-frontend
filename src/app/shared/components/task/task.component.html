@@ -9,7 +9,7 @@
       >
         {{ task!.title }}
       </mat-radio-button>
-      <p class="task-description">{{ task!.description }}</p>
+      <p mat-subheading-2 class="task-description">{{ task!.description }}</p>
       <mat-chip-list aria-label="date">
         <mat-chip
           class="task-chip"
@@ -33,23 +33,6 @@
     <div class="task-action-buttons">
       <div class="task-action-buttons-grouped">
         <button
-          *ngIf="!isMobileScreen()"
-          mat-button
-          color="primary"
-          (click)="onEditTask(task)"
-        >
-          EDIT
-        </button>
-        <button
-          *ngIf="!isMobileScreen()"
-          mat-button
-          color="warn"
-          (click)="onDeleteTask(task!._id)"
-        >
-          DELETE
-        </button>
-        <button
-          *ngIf="isMobileScreen()"
           mat-icon-button
           [matMenuTriggerFor]="menu"
           aria-label="menu icon"

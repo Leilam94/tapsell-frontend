@@ -1,5 +1,5 @@
 <div class="page-container">
-  <h1 class="page-title">{{ title }}</h1>
+  <h1 mat-headline>{{ title }}</h1>
   <ng-container *ngIf="!isLoading; else loading">
     <ng-container *ngIf="tasks.length > 0; else noTasks">
       <div *ngFor="let task of tasks">
@@ -11,8 +11,8 @@
       <app-no-tasks></app-no-tasks>
     </ng-template>
     <button
-      mat-button
-      [color]="!isMobileScreen() ?'primary':'accent'"
+      mat-stroked-button
+      [color]="!isMobileScreen() ? 'primary' : 'accent'"
       (click)="onAddTask()"
       [ngClass]="
         !isMobileScreen() ? 'add-button' : 'fixed-button mat-raised-button'

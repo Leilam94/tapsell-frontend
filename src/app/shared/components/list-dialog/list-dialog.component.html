@@ -25,11 +25,11 @@
 <div mat-dialog-actions class="action-buttons">
   <button mat-button (click)="onCancleClick()">CANCLE</button>
   <button
-    mat-button
+    mat-raised-button
+    color="primary"
     (click)="onSaveClick()"
     cdkFocusInitial
     [disabled]="Title.invalid"
-    color="primary"
   >
     SAVE
   </button>

@@ -1,16 +1,17 @@
-<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+<div class="container" [class.is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="toolbar">
     <div class="toolbar-title">
       <button mat-icon-button (click)="snav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <h1 class="example-app-name">To Do App</h1>
+      <h1 class="app-name">To Do App</h1>
     </div>
     <button
       *ngIf="!isMobileScreen()"
       mat-flat-button
       color="accent"
       (click)="onClickAddTask()"
+      style="padding-right:20px"
     >
       <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
       NEW TASK
@@ -18,7 +19,7 @@
   </mat-toolbar>
 
   <mat-sidenav-container
-    class="example-sidenav-container"
+    class="sidenav-container"
     [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
   >
     <mat-sidenav
@@ -64,7 +65,7 @@
           <div>{{ nav.title }}</div>
         </a>
       </mat-nav-list>
-      <button mat-button color="primary" (click)="onClickAddList()">
+      <button mat-stroked-button color="primary" (click)="onClickAddList()" class="add-list-button">
         <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
         NEW LIST
       </button>

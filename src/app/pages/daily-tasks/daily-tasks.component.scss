@@ -1,17 +1,14 @@
 .page-container {
   padding: 48px;
 }
-.page-title {
-  font-size: 28px;
-}
 .add-button {
   margin-top: 8px;
 }
-.fixed-button{
+.fixed-button {
   position: fixed;
   bottom: 16px;
   right: 48px;
-  padding:5px 14px 5px 10px;
+  padding: 5px 14px 5px 10px;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -23,7 +20,7 @@
     padding-left: 16px;
     padding-right: 16px;
   }
-  .fixed-button{
-    right: 16px
+  .fixed-button {
+    right: 16px;
   }
 }

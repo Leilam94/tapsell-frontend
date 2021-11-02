@@ -1,4 +1,4 @@
-.example-container {
+.container {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -8,45 +8,50 @@
   right: 0;
 }
 
-.example-is-mobile .toolbar {
+.is-mobile .toolbar {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
   z-index: 2;
 }
-.toolbar{
+.toolbar {
   display: flex;
   justify-content: space-between;
-  &-title{
+  &-title {
     display: flex;
     align-items: center;
   }
 }
 
-h1.example-app-name {
+h1.app-name {
   margin-left: 8px;
 }
 
-.example-sidenav-container {
+.sidenav-container {
   /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
   flex: 1;
 }
 
-.example-is-mobile .example-sidenav-container {
+.is-mobile .sidenav-container {
   /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
 }
-.sidenav{
+.sidenav {
   width: 300px;
+  padding-top: 16px;
 }
 
-.nav-list{
+.nav-list {
   display: flex;
   align-items: center;
   padding-left: 16px;
   color: #9e9e9e;
 }
-.content-container{
+.content-container {
   background-color: #ffffff;
+}
+.add-list-button {
+  margin-top: 32px;
+  margin-left: 16px;
 }

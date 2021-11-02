@@ -1,5 +1,5 @@
 <div class="page-container">
-  <h1 class="page-title">{{ title }}</h1>
+  <h1 mat-headline>{{ title }}</h1>
   <ng-container *ngIf="!isLoading; else loading">
     <div *ngFor="let task of completedTasks">
       <app-completed-task

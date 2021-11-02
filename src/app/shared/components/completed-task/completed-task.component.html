@@ -2,45 +2,28 @@
   <div class="task-details">
     <div class="task-details-icon">
       <ng-container *ngIf="!isLoading; else loading">
-        <mat-icon color="primary" aria-hidden="false" aria-label="done icon"
+        <mat-icon  style="color:#607d8b" aria-hidden="false" aria-label="done icon"
           >done</mat-icon
         >
       </ng-container>
       <ng-template #loading>
         <mat-spinner diameter="20"></mat-spinner>
       </ng-template>
-      <p>
+      <h2 mat-title>
         {{ task!.title }}
-      </p>
+      </h2>
     </div>
-    <p class="task-description">{{ task!.description }}</p>
+    <p mat-subheading-2 class="task-description">{{ task!.description }}</p>
     <mat-chip-list aria-label="date">
       <mat-chip class="task-date">{{ task!.date | date }}</mat-chip>
     </mat-chip-list>
   </div>
   <div class="task-action-buttons">
     <button
-      *ngIf="!isMobileScreen()"
-      mat-button
-      color="primary"
-      (click)="onMoveBackToUncomplete(task)"
-    >
-      MARK UNCOMPLETE
-    </button>
-    <button
-      *ngIf="!isMobileScreen()"
-      mat-button
-      color="warn"
-      (click)="onDeleteTask(task!._id)"
-    >
-      DELETE
-    </button>
-    <button
-      *ngIf="isMobileScreen()"
       mat-icon-button
       [matMenuTriggerFor]="menu"
       aria-label="menu icon"
-      color="accent"
+      color="primary"
     >
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -51,7 +34,7 @@
       </button>
       <button mat-menu-item (click)="onDeleteTask(task!._id)">
         <mat-icon>delete</mat-icon>
-        <span>Delete Task</span>
+        <span>Delete task</span>
       </button>
     </mat-menu>
   </div>

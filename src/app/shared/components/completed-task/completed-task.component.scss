@@ -14,17 +14,18 @@
 .task-details-icon {
   display: flex;
   align-items: center;
-  p {
-    font-size: 18px;
-    font-weight: 500;
+  h2 {
     margin: 0;
     margin-left: 8px;
     text-decoration-line: line-through;
   }
 }
-.task-description,
+.task-description{
+  margin-bottom: 32px !important ;
+  margin-left: 32px !important;
+  margin-top: 8px;
+}
 .task-date {
-  margin-top: 8px !important;
   margin-left: 32px !important;
   margin-bottom: 8px !important ;
 }
