@@ -9,6 +9,8 @@ import { IList } from './../../models';
 import { Subscription } from 'rxjs';
 import { ToastMessageService } from 'src/app/shared/services/toast-message.service';
 import { HandleServerErrorsService } from 'src/app/shared/services/handle-server-errors.service';
+import { TaskDialogComponent } from 'src/app/shared/components/task-dialog/task-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav-bar',
@@ -29,7 +31,8 @@ export class SideNavBarComponent implements OnInit {
     public dialog: MatDialog,
     private listService: ListService,
     private toastService: ToastMessageService,
-    private errorService: HandleServerErrorsService
+    private errorService: HandleServerErrorsService,
+    private router: Router
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -75,6 +78,20 @@ export class SideNavBarComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) this.listService.setLists();
+    });
+  }
+  onClickAddTask() {
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
+      width: '350px',
+      data: {
+        title: '',
+        description: '',
+        list: '',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result.list);
+      if (result) this.router.navigateByUrl(`/${result.list}`);
     });
   }
   ngOnDestroy(): void {

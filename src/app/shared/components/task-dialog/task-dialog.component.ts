@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { APIService } from './../../services/api.service';
-import { IList, ITask } from '../../../models';
+import { ITask } from '../../../models';
 import { ToastMessageService } from '../../services/toast-message.service';
 import { HandleServerErrorsService } from '../../services/handle-server-errors.service';
 import { FormControl, Validators } from '@angular/forms';
+import { IList } from 'src/app/models';
 
 @Component({
   selector: 'app-task-dialog',
@@ -14,6 +15,9 @@ import { FormControl, Validators } from '@angular/forms';
 export class TaskDialogComponent implements OnInit {
   mainListId: string = '';
   title: string = '';
+  options: Array<ITask> = [];
+  withSelectBox: boolean = false;
+  SelectBox = new FormControl('', [Validators.required]);
   Title = new FormControl('', [Validators.required]);
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
@@ -26,6 +30,10 @@ export class TaskDialogComponent implements OnInit {
       this.title = 'New Task';
     } else {
       this.title = 'Edit Task';
+    }
+    if (!task.list) {
+      this.withSelectBox = true;
+      this.getLists();
     }
   }
 
@@ -71,5 +79,19 @@ export class TaskDialogComponent implements OnInit {
           }
         );
     }
+  }
+  getLists() {
+    this.service.get(`api/lists`).subscribe(
+      (data) => {
+        if (!data.error) {
+          this.options = data;
+        }
+      },
+      (err) => {
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
+      }
+    );
   }
 }

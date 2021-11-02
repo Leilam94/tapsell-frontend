@@ -27,8 +27,24 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <mat-form-field appearance="fill" *ngIf="withSelectBox" class="form-field">
+    <mat-label>Select a list</mat-label>
+    <mat-select [(value)]="task.list" [formControl]="SelectBox">
+      <mat-option *ngFor="let option of options" [value]="option._id">
+        {{ option.title }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="SelectBox.invalid"> You must select a list</mat-error>
+  </mat-form-field>
 </div>
 <div mat-dialog-actions class="action-buttons">
   <button mat-button (click)="onCancleClick()">CANCLE</button>
-  <button mat-button (click)="onSaveClick()" cdkFocusInitial [disabled]="Title.invalid">SAVE</button>
+  <button
+    mat-button
+    (click)="onSaveClick()"
+    cdkFocusInitial
+    [disabled]="Title.invalid || (withSelectBox && SelectBox.invalid)"
+  >
+    SAVE
+  </button>
 </div>
