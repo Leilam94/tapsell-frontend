@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { ListService } from './../../pages/lists/services/list.service';
 import { IList } from './../../models';
 import { Subscription } from 'rxjs';
+import { ToastMessageService } from 'src/app/shared/services/toast-message.service';
+import { HandleServerErrorsService } from 'src/app/shared/services/handle-server-errors.service';
 
 @Component({
   selector: 'app-side-nav-bar',
@@ -26,8 +28,9 @@ export class SideNavBarComponent implements OnInit {
     media: MediaMatcher,
     private service: APIService,
     public dialog: MatDialog,
-    private router: Router,
-    private listService: ListService
+    private listService: ListService,
+    private toastService: ToastMessageService,
+    private errorService: HandleServerErrorsService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -55,7 +58,11 @@ export class SideNavBarComponent implements OnInit {
           this.listService.setLists();
         }
       },
-      (err) => {}
+      (err) => {
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
+      }
     );
   }
   onClickAddList() {

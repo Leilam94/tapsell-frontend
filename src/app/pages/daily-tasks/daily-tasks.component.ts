@@ -12,8 +12,8 @@ import { HandleServerErrorsService } from 'src/app/shared/services/handle-server
   styleUrls: ['./daily-tasks.component.scss'],
 })
 export class DailyTasksComponent implements OnInit {
-  listID: string = '617e7a911ad6751354c24780';
-  title: string = 'Daily Tasks';
+  listID: string = '';
+  title: string = '';
   tasks: ITask[] = [];
   constructor(
     public dialog: MatDialog,
@@ -22,7 +22,23 @@ export class DailyTasksComponent implements OnInit {
     private errorService: HandleServerErrorsService
   ) {}
   ngOnInit(): void {
-    this.getTasks();
+    this.getMainList();
+  }
+  getMainList() {
+    this.service.get(`api/mainList`).subscribe(
+      (data) => {
+        if (!data.error) {
+          this.title = data.title;
+          this.listID = data._id;
+          this.getTasks();
+        }
+      },
+      (err) => {
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
+      }
+    );
   }
   getTasks() {
     this.service.get(`api/tasks/query/${this.listID}`).subscribe(

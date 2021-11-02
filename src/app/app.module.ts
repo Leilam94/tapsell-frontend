@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SideNavBarComponent } from './layouts/side-nav-bar/side-nav-bar.component';
+
 import { MatComponentsModule } from './mat-components/mat-components.module';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+
+import { AppComponent } from './app.component';
+import { SideNavBarComponent } from './layouts/side-nav-bar/side-nav-bar.component';
 import { DailyTasksComponent } from './pages/daily-tasks/daily-tasks.component';
 import { ListsComponent } from './pages/lists/lists.component';
 import { TaskComponent } from './shared/components/task/task.component';
@@ -37,7 +39,8 @@ import { ListDialogComponent } from './shared/components/list-dialog/list-dialog
     MatComponentsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSkeletonLoaderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
