@@ -22,9 +22,10 @@ import { TaskDialogComponent } from './../task-dialog/task-dialog.component';
 })
 export class TaskComponent implements OnInit {
   @Input() task?: ITask;
+  @Input() mainListId?: string;
   @Output() getData = new EventEmitter<string>();
   isLoading = false;
-  mainListId = '';
+
   constructor(
     public dialog: MatDialog,
     private service: APIService,
@@ -32,9 +33,7 @@ export class TaskComponent implements OnInit {
     private errorService: HandleServerErrorsService
   ) {}
 
-  ngOnInit(): void {
-    this.getMainList();
-  }
+  ngOnInit(): void {}
 
   onDeleteTask(id?: string) {
     this.service.delete(`api/tasks/${id}`).subscribe(
@@ -89,20 +88,7 @@ export class TaskComponent implements OnInit {
       );
     }
   }
-  getMainList() {
-    this.service.get(`api/mainList`).subscribe(
-      (data) => {
-        if (!data.error) {
-          this.mainListId = data._id;
-        }
-      },
-      (err) => {
-        this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
-        );
-      }
-    );
-  }
+
   onMoveToDaily(task: ITask) {
     const bodyParams = { ...task, list: this.mainListId };
     this.service.put<ITask>(`api/tasks/${task!._id}`, bodyParams).subscribe(

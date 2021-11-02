@@ -17,7 +17,7 @@
   </div>
   <ng-container *ngIf="!isLoading; else loading">
     <div *ngFor="let task of tasks">
-      <app-task [task]="task" (getData)="getTasks()"> </app-task>
+      <app-task [task]="task" (getData)="getTasks()" [mainListId]="mainListId"> </app-task>
     </div>
     <button
       mat-button

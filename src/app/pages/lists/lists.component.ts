@@ -20,6 +20,7 @@ export class ListsComponent implements OnInit {
   title = '';
   list?: IList;
   isLoading: boolean = true;
+  mainListId = '';
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class ListsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.listID = params['list'];
       this.getList();
+      this.getMainList();
       this.getTasks();
     });
   }
@@ -113,5 +115,19 @@ export class ListsComponent implements OnInit {
         this.listService.setLists();
       }
     });
+  }
+  getMainList() {
+    this.service.get(`api/mainList`).subscribe(
+      (data) => {
+        if (!data.error) {
+          this.mainListId = data._id;
+        }
+      },
+      (err) => {
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
+      }
+    );
   }
 }
