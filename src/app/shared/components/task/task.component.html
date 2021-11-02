@@ -43,7 +43,7 @@
         <button
           *ngIf="!isMobileScreen()"
           mat-button
-          color="accent"
+          color="warn"
           (click)="onDeleteTask(task!._id)"
         >
           DELETE
@@ -53,7 +53,7 @@
           mat-icon-button
           [matMenuTriggerFor]="menu"
           aria-label="menu icon"
-          color="accent"
+          color="primary"
         >
           <mat-icon>more_vert</mat-icon>
         </button>

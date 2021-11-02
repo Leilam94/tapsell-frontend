@@ -19,13 +19,29 @@
     </mat-chip-list>
   </div>
   <div class="task-action-buttons">
-    <button  *ngIf="!isMobileScreen()" mat-button color="primary" (click)="onMoveBackToUncomplete(task)">
+    <button
+      *ngIf="!isMobileScreen()"
+      mat-button
+      color="primary"
+      (click)="onMoveBackToUncomplete(task)"
+    >
       MARK UNCOMPLETE
     </button>
-    <button  *ngIf="!isMobileScreen()" mat-button color="accent" (click)="onDeleteTask(task!._id)">
+    <button
+      *ngIf="!isMobileScreen()"
+      mat-button
+      color="warn"
+      (click)="onDeleteTask(task!._id)"
+    >
       DELETE
     </button>
-    <button *ngIf="isMobileScreen()" mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu icon" color="accent">
+    <button
+      *ngIf="isMobileScreen()"
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="menu icon"
+      color="accent"
+    >
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">

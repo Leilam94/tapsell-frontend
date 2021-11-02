@@ -31,7 +31,7 @@
     </ng-template>
     <button
       mat-button
-      color="primary"
+      [color]="!isMobileScreen() ?'primary':'accent'"
       (click)="onAddTask()"
       class="add-button"
       [ngClass]="

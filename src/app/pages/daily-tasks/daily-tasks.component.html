@@ -12,7 +12,7 @@
     </ng-template>
     <button
       mat-button
-      color="primary"
+      [color]="!isMobileScreen() ?'primary':'accent'"
       (click)="onAddTask()"
       [ngClass]="
         !isMobileScreen() ? 'add-button' : 'fixed-button mat-raised-button'
