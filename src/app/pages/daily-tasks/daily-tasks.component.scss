@@ -7,3 +7,23 @@
 .add-button {
   margin-top: 8px;
 }
+.fixed-button{
+  position: fixed;
+  bottom: 16px;
+  right: 48px;
+  padding:5px 14px 5px 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+@media screen and (max-width: 500px) {
+  .page-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .fixed-button{
+    right: 16px
+  }
+}

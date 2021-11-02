@@ -11,6 +11,7 @@ import { ToastMessageService } from 'src/app/shared/services/toast-message.servi
 import { HandleServerErrorsService } from 'src/app/shared/services/handle-server-errors.service';
 import { TaskDialogComponent } from 'src/app/shared/components/task-dialog/task-dialog.component';
 import { Router } from '@angular/router';
+import { ScreenSizeService } from './../../shared/services/screen-size.service';
 
 @Component({
   selector: 'app-side-nav-bar',
@@ -32,9 +33,10 @@ export class SideNavBarComponent implements OnInit {
     private listService: ListService,
     private toastService: ToastMessageService,
     private errorService: HandleServerErrorsService,
-    private router: Router
+    private router: Router,
+    private screen: ScreenSizeService
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.mobileQuery = media.matchMedia('(max-width: 950px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.subscription = this.listService.getLists().subscribe((lists) => {
@@ -51,6 +53,7 @@ export class SideNavBarComponent implements OnInit {
   ngOnInit(): void {
     this.getMainList();
   }
+
   getMainList() {
     this.service.get(`api/mainList`).subscribe(
       (data) => {
@@ -90,9 +93,14 @@ export class SideNavBarComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result.list);
       if (result) this.router.navigateByUrl(`/${result.list}`);
     });
+  }
+  isMobileScreen() {
+    if (this.screen.sizes['screen-x-small']) {
+      return true;
+    }
+    return false;
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

@@ -5,6 +5,7 @@ import { APIService } from './../../shared/services/api.service';
 import { ToastMessageService } from './../../shared/services/toast-message.service';
 import { TaskDialogComponent } from './../../shared/components/task-dialog/task-dialog.component';
 import { HandleServerErrorsService } from 'src/app/shared/services/handle-server-errors.service';
+import { ScreenSizeService } from './../../shared/services/screen-size.service';
 
 @Component({
   selector: 'app-daily-tasks',
@@ -20,7 +21,8 @@ export class DailyTasksComponent implements OnInit {
     public dialog: MatDialog,
     private service: APIService,
     private toastService: ToastMessageService,
-    private errorService: HandleServerErrorsService
+    private errorService: HandleServerErrorsService,
+    private screen:ScreenSizeService
   ) {}
   ngOnInit(): void {
     this.getMainList();
@@ -71,5 +73,11 @@ export class DailyTasksComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) this.getTasks();
     });
+  }
+  isMobileScreen() {
+    if (this.screen.sizes['screen-x-small']) {
+      return true;
+    }
+    return false;
   }
 }

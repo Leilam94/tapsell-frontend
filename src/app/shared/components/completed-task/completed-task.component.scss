@@ -1,7 +1,7 @@
 .task-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  // align-items: center;
   margin-top: 16px;
   padding: 16px;
   border: 1px solid rgb(231, 231, 231);
@@ -27,4 +27,14 @@
   margin-top: 8px !important;
   margin-left: 32px !important;
   margin-bottom: 8px !important ;
+}
+@media screen and (max-width: 500px) {
+  .task-container {
+    padding: 16px;
+    // padding-right: 0;
+  }
+  .task-details{
+    margin-right: 0;
+    align-self: flex-start;
+  }
 }

@@ -18,6 +18,7 @@ import { CompletedTaskComponent } from './shared/components/completed-task/compl
 import { TaskDialogComponent } from './shared/components/task-dialog/task-dialog.component';
 import { ListDialogComponent } from './shared/components/list-dialog/list-dialog.component';
 import { TaskSkeletonComponent } from './shared/components/task-skeleton/task-skeleton.component';
+import { NoTasksComponent } from './shared/components/no-tasks/no-tasks.component';
 
 
 
@@ -32,7 +33,8 @@ import { TaskSkeletonComponent } from './shared/components/task-skeleton/task-sk
     CompletedTaskComponent,
     TaskDialogComponent,
     ListDialogComponent,
-    TaskSkeletonComponent
+    TaskSkeletonComponent,
+    NoTasksComponent
   ],
   imports: [
     BrowserModule,

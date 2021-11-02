@@ -22,12 +22,25 @@
     </div>
     <div class="task-action-buttons">
       <div class="task-action-buttons-grouped">
-        <button mat-button color="primary" (click)="onEditTask(task)">
+        <button  *ngIf="!isMobileScreen()" mat-button color="primary" (click)="onEditTask(task)">
           EDIT
         </button>
-        <button mat-button color="accent" (click)="onDeleteTask(task!._id)">
+        <button  *ngIf="!isMobileScreen()" mat-button color="accent" (click)="onDeleteTask(task!._id)">
           DELETE
         </button>
+        <button *ngIf="isMobileScreen()" mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu icon" color="accent">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onEditTask(task)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit Task</span>
+          </button>
+          <button mat-menu-item (click)="onDeleteTask(task!._id)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete Task</span>
+          </button>
+        </mat-menu>
       </div>
     </div>
   </div>

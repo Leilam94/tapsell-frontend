@@ -12,12 +12,12 @@ import { HandleServerErrorsService } from 'src/app/shared/services/handle-server
 export class CompletedTasksComponent implements OnInit {
   title = 'Completed Tasks';
   completedTasks: Array<ITask> = [];
-  isLoading:boolean = true;
+  isLoading: boolean = true;
   constructor(
     private service: APIService,
     private toastService: ToastMessageService,
     private errorService: HandleServerErrorsService
-    ) {}
+  ) {}
 
   ngOnInit(): void {
     this.getTasks();
@@ -26,8 +26,7 @@ export class CompletedTasksComponent implements OnInit {
     this.service.get('api/compeleted').subscribe(
       (data) => {
         if (!data.error) {
-          this.isLoading  = false;
-          // this.tableLoading = false;
+          this.isLoading = false;
           this.completedTasks = data;
         }
       },

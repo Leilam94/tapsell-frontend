@@ -1,19 +1,12 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  enableProdMode,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { ITask } from 'src/app/models';
-import { DailyTasksComponent } from 'src/app/pages/daily-tasks/daily-tasks.component';
 import { HandleServerErrorsService } from '../../services/handle-server-errors.service';
 import { APIService } from './../../services/api.service';
 import { ToastMessageService } from './../../services/toast-message.service';
 import { TaskDialogComponent } from './../task-dialog/task-dialog.component';
+import { ScreenSizeService } from './../../services/screen-size.service';
 
 @Component({
   selector: 'app-task',
@@ -25,12 +18,12 @@ export class TaskComponent implements OnInit {
   @Input() mainListId?: string;
   @Output() getData = new EventEmitter<string>();
   isLoading = false;
-
   constructor(
     public dialog: MatDialog,
     private service: APIService,
     private toastService: ToastMessageService,
-    private errorService: HandleServerErrorsService
+    private errorService: HandleServerErrorsService,
+    private screen: ScreenSizeService
   ) {}
 
   ngOnInit(): void {}
@@ -39,7 +32,6 @@ export class TaskComponent implements OnInit {
     this.service.delete(`api/tasks/${id}`).subscribe(
       (res) => {
         if (!res.error) {
-          // this.tableLoading = false;
           this.getData.next();
         }
       },
@@ -73,7 +65,6 @@ export class TaskComponent implements OnInit {
       this.service.put<ITask>(`api/tasks/${task!._id}`, bodyParams).subscribe(
         (res) => {
           if (!res.error) {
-            // this.tableLoading = false;
             setTimeout(() => {
               this.getData.next();
               this.toastService.openSnackBar('Task Completed');
@@ -94,7 +85,6 @@ export class TaskComponent implements OnInit {
     this.service.put<ITask>(`api/tasks/${task!._id}`, bodyParams).subscribe(
       (res) => {
         if (!res.error) {
-          // this.tableLoading = false;
           setTimeout(() => {
             this.getData.next();
             this.toastService.openSnackBar('Task moved successfully');
@@ -124,5 +114,11 @@ export class TaskComponent implements OnInit {
         }
       );
     }
+  }
+  isMobileScreen() {
+    if (this.screen.sizes['screen-x-small']) {
+      return true;
+    }
+    return false;
   }
 }

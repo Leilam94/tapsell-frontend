@@ -3,6 +3,7 @@ import { ITask } from 'src/app/models';
 import { APIService } from './../../services/api.service';
 import { ToastMessageService } from './../../services/toast-message.service';
 import { HandleServerErrorsService } from './../../services/handle-server-errors.service';
+import { ScreenSizeService } from './../../services/screen-size.service';
 
 @Component({
   selector: 'app-completed-task',
@@ -16,7 +17,8 @@ export class CompletedTaskComponent implements OnInit {
   constructor(
     private service: APIService,
     private toastService: ToastMessageService,
-    private errorService: HandleServerErrorsService
+    private errorService: HandleServerErrorsService,
+    private screen: ScreenSizeService
   ) {}
 
   ngOnInit(): void {}
@@ -54,5 +56,11 @@ export class CompletedTaskComponent implements OnInit {
         );
       }
     );
+  }
+  isMobileScreen() {
+    if (this.screen.sizes['screen-x-small'] || this.screen.sizes['screen-small']) {
+      return true;
+    }
+    return false;
   }
 }

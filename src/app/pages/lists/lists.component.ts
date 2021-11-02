@@ -8,6 +8,7 @@ import { ListDialogComponent } from './../../shared/components/list-dialog/list-
 import { ListService } from './services/list.service';
 import { ToastMessageService } from 'src/app/shared/services/toast-message.service';
 import { HandleServerErrorsService } from 'src/app/shared/services/handle-server-errors.service';
+import { ScreenSizeService } from './../../shared/services/screen-size.service';
 
 @Component({
   selector: 'app-lists',
@@ -28,7 +29,8 @@ export class ListsComponent implements OnInit {
     private toastService: ToastMessageService,
     private errorService: HandleServerErrorsService,
     private listService: ListService,
-    private router: Router
+    private router: Router,
+    private screen: ScreenSizeService
   ) {
     this.route.params.subscribe((params) => {
       this.listID = params['list'];
@@ -129,5 +131,11 @@ export class ListsComponent implements OnInit {
         );
       }
     );
+  }
+  isMobileScreen() {
+    if (this.screen.sizes['screen-x-small']) {
+      return true;
+    }
+    return false;
   }
 }

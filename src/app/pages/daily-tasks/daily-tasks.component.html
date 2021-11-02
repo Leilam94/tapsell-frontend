@@ -1,15 +1,30 @@
 <div class="page-container">
   <h1 class="page-title">{{ title }}</h1>
   <ng-container *ngIf="!isLoading; else loading">
-    <div *ngFor="let task of tasks">
-      <app-task [task]="task" (getData)="getTasks()"> </app-task>
-    </div>
-    <button mat-button color="primary" (click)="onAddTask()" class="add-button">
+    <ng-container *ngIf="tasks.length > 0; else noTasks">
+      <div *ngFor="let task of tasks">
+        <app-task [task]="task" (getData)="getTasks()" [mainListId]="listID">
+        </app-task>
+      </div>
+    </ng-container>
+    <ng-template #noTasks>
+      <app-no-tasks></app-no-tasks>
+    </ng-template>
+    <button
+      mat-button
+      color="primary"
+      (click)="onAddTask()"
+      [ngClass]="
+        !isMobileScreen() ? 'add-button' : 'fixed-button mat-raised-button'
+      "
+    >
       <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
       NEW TASK
     </button>
   </ng-container>
   <ng-template #loading>
-    <app-task-skeleton *ngFor="let number of [0,1,2,3,4]"></app-task-skeleton>
+    <app-task-skeleton
+      *ngFor="let number of [0, 1, 2, 3, 4]"
+    ></app-task-skeleton>
   </ng-template>
 </div>

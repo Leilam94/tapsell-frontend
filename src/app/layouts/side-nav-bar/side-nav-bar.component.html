@@ -6,7 +6,12 @@
       </button>
       <h1 class="example-app-name">To Do App</h1>
     </div>
-    <button mat-button (click)="onClickAddTask()">
+    <button
+      *ngIf="!isMobileScreen()"
+      mat-flat-button
+      color="accent"
+      (click)="onClickAddTask()"
+    >
       <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
       NEW TASK
     </button>
@@ -26,20 +31,35 @@
     >
       <mat-nav-list class="nav-list">
         <mat-icon aria-hidden="false" aria-label="today icon">today</mat-icon>
-        <a mat-list-item routerLink=".">
+        <a
+          mat-list-item
+          routerLink="."
+          (click)="mobileQuery.matches && snav.toggle()"
+        >
           {{ mainListTitle }}
         </a>
       </mat-nav-list>
       <mat-nav-list class="nav-list">
-        <mat-icon aria-hidden="false" aria-label="today icon">task_alt</mat-icon>
-        <a mat-list-item routerLink="/completed"> Completed Tasks </a>
+        <mat-icon aria-hidden="false" aria-label="today icon"
+          >task_alt</mat-icon
+        >
+        <a
+          mat-list-item
+          routerLink="/completed"
+          (click)="mobileQuery.matches && snav.toggle()"
+        >
+          Completed Tasks
+        </a>
       </mat-nav-list>
       <mat-divider></mat-divider>
       <mat-nav-list *ngFor="let nav of fillerNav" class="nav-list">
-        <mat-icon aria-hidden="false" aria-label="today icon">list_alt</mat-icon>
+        <mat-icon aria-hidden="false" aria-label="today icon"
+          >list_alt</mat-icon
+        >
         <a
           mat-list-item
           routerLink="/{{ nav._id }}"
+          (click)="mobileQuery.matches && snav.toggle()"
         >
           <div>{{ nav.title }}</div>
         </a>
