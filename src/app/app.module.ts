@@ -19,6 +19,7 @@ import { TaskDialogComponent } from './shared/components/task-dialog/task-dialog
 import { ListDialogComponent } from './shared/components/list-dialog/list-dialog.component';
 import { TaskSkeletonComponent } from './shared/components/task-skeleton/task-skeleton.component';
 import { NoTasksComponent } from './shared/components/no-tasks/no-tasks.component';
+import { DeleteDialogComponent } from './shared/components/delete-dialog/delete-dialog.component';
 
 
 
@@ -34,7 +35,8 @@ import { NoTasksComponent } from './shared/components/no-tasks/no-tasks.componen
     TaskDialogComponent,
     ListDialogComponent,
     TaskSkeletonComponent,
-    NoTasksComponent
+    NoTasksComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,

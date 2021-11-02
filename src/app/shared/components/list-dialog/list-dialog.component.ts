@@ -23,7 +23,7 @@ export class ListDialogComponent implements OnInit {
     if (!list._id) {
       this.title = 'New List';
     } else {
-      this.title = 'Edit List';
+      this.title = 'Rename List';
     }
   }
 

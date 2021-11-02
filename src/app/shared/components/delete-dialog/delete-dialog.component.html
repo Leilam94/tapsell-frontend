@@ -1,0 +1,7 @@
+<mat-dialog-content class="mat-typography">
+  <p>Are you sure you want to remove this item?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close (click)="onNoClick()">NO</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onYesClick()">YES</button>
+</mat-dialog-actions>

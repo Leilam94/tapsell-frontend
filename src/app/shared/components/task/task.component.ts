@@ -7,6 +7,7 @@ import { APIService } from './../../services/api.service';
 import { ToastMessageService } from './../../services/toast-message.service';
 import { TaskDialogComponent } from './../task-dialog/task-dialog.component';
 import { ScreenSizeService } from './../../services/screen-size.service';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-task',
@@ -29,18 +30,16 @@ export class TaskComponent implements OnInit {
   ngOnInit(): void {}
 
   onDeleteTask(id?: string) {
-    this.service.delete(`api/tasks/${id}`).subscribe(
-      (res) => {
-        if (!res.error) {
-          this.getData.next();
-        }
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '350px',
+      data: {
+        id: id,
+        type: 'tasks'
       },
-      (err) => {
-        this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
-        );
-      }
-    );
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.getData.next();
+    });
   }
   onEditTask(task?: ITask) {
     const dialogRef = this.dialog.open(TaskDialogComponent, {

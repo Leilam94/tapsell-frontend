@@ -9,6 +9,7 @@ import { ListService } from './services/list.service';
 import { ToastMessageService } from 'src/app/shared/services/toast-message.service';
 import { HandleServerErrorsService } from 'src/app/shared/services/handle-server-errors.service';
 import { ScreenSizeService } from './../../shared/services/screen-size.service';
+import { DeleteDialogComponent } from 'src/app/shared/components/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-lists',
@@ -88,19 +89,19 @@ export class ListsComponent implements OnInit {
     );
   }
   onDeleteList() {
-    this.service.delete(`api/lists/${this.listID}`).subscribe(
-      (data) => {
-        if (!data.error) {
-          this.listService.setLists();
-          this.router.navigateByUrl('/');
-        }
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '350px',
+      data: {
+        id: this.listID,
+        type: 'lists'
       },
-      (err) => {
-        this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
-        );
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result){
+        this.listService.setLists();
+        this.router.navigateByUrl('/');
       }
-    );
+    });
   }
   onEditList() {
     const dialogRef = this.dialog.open(ListDialogComponent, {
