@@ -46,7 +46,7 @@ export class TaskDialogComponent implements OnInit {
       this.service.post<ITask>('api/tasks', bodyParams).subscribe(
         (data) => {
           if (!data.error) {
-            this.dialogRef.close();
+            this.dialogRef.close(data);
           }
         },
         (err) => {
@@ -61,7 +61,7 @@ export class TaskDialogComponent implements OnInit {
         .subscribe(
           (data) => {
             if (!data.error) {
-              this.dialogRef.close();
+              this.dialogRef.close(data);
             }
           },
           (err) => {

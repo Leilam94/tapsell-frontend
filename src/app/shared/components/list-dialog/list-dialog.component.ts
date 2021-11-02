@@ -41,7 +41,7 @@ export class ListDialogComponent implements OnInit {
       this.service.post<IList>('api/lists', bodyParams).subscribe(
         (data) => {
           if (!data.error) {
-            this.dialogRef.close();
+            this.dialogRef.close(data);
           }
         },
         (err) => {
@@ -56,7 +56,7 @@ export class ListDialogComponent implements OnInit {
         .subscribe(
           (data) => {
             if (!data.error) {
-              this.dialogRef.close();
+              this.dialogRef.close(data);
             }
           },
           (err) => {

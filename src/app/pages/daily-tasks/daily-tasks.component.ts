@@ -15,7 +15,7 @@ export class DailyTasksComponent implements OnInit {
   listID: string = '';
   title: string = '';
   tasks: ITask[] = [];
-  isLoading:boolean = true;
+  isLoading: boolean = true;
   constructor(
     public dialog: MatDialog,
     private service: APIService,
@@ -69,7 +69,7 @@ export class DailyTasksComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.getTasks();
+      if (result) this.getTasks();
     });
   }
 }

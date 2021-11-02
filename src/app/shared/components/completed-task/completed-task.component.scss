@@ -2,9 +2,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 48px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgb(231, 231, 231);
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid rgb(231, 231, 231);
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }
 .task-details-icon {
   display: flex;

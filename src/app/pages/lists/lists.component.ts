@@ -63,7 +63,7 @@ export class ListsComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.getTasks();
+      if (result) this.getTasks();
     });
   }
   getList() {
@@ -108,8 +108,10 @@ export class ListsComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.getList();
-      this.listService.setLists();
+      if (result) {
+        this.getList();
+        this.listService.setLists();
+      }
     });
   }
 }

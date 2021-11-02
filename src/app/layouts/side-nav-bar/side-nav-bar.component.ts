@@ -4,7 +4,6 @@ import { ChangeDetectorRef } from '@angular/core';
 import { APIService } from './../../shared/services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ListDialogComponent } from './../../shared/components/list-dialog/list-dialog.component';
-import { Router } from '@angular/router';
 import { ListService } from './../../pages/lists/services/list.service';
 import { IList } from './../../models';
 import { Subscription } from 'rxjs';
@@ -75,7 +74,7 @@ export class SideNavBarComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.listService.setLists();
+      if (result) this.listService.setLists();
     });
   }
   ngOnDestroy(): void {

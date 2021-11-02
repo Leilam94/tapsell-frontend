@@ -63,7 +63,7 @@ export class TaskComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.getData.next();
+      if (result) this.getData.next();
     });
   }
 
@@ -103,29 +103,27 @@ export class TaskComponent implements OnInit {
       }
     );
   }
-  onChangeCheckBox(checked: boolean, task: ITask) {
-    if (checked) {
-      const bodyParams = { ...task, list: this.mainListId };
-      this.service.put<ITask>(`api/tasks/${task!._id}`, bodyParams).subscribe(
-        (res) => {
-          if (!res.error) {
-            // this.tableLoading = false;
-            setTimeout(() => {
-              this.getData.next();
-              this.toastService.openSnackBar('Task moved successfully');
-            }, 1000);
-          }
-        },
-        (err) => {
-          this.toastService.openSnackBar(
-            this.errorService.getServerErrorMessage(err)
-          );
+  onMoveToDaily(task: ITask) {
+    const bodyParams = { ...task, list: this.mainListId };
+    this.service.put<ITask>(`api/tasks/${task!._id}`, bodyParams).subscribe(
+      (res) => {
+        if (!res.error) {
+          // this.tableLoading = false;
+          setTimeout(() => {
+            this.getData.next();
+            this.toastService.openSnackBar('Task moved successfully');
+          }, 1000);
         }
-      );
-    }
+      },
+      (err) => {
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
+      }
+    );
   }
-  onDateChange(e:MatDatepickerInputEvent<Date>, task: ITask): void {
-    if(e.value){
+  onDateChange(e: MatDatepickerInputEvent<Date>, task: ITask): void {
+    if (e.value) {
       const bodyParams = { ...task, date: e.value };
       this.service.put<ITask>(`api/tasks/${task!._id}`, bodyParams).subscribe(
         (res) => {

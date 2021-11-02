@@ -1,38 +1,39 @@
 <div class="task-container">
-  <div class="task-details">
-    <mat-radio-button
-      [name]="task!.title"
-      [value]="task!.title"
-      (change)="onCompleteTask(task)"
-      class="task-title"
-    >
-      {{ task!.title }}
-    </mat-radio-button>
-    <p class="task-description">{{ task!.description }}</p>
-    <mat-chip-list aria-label="date">
-      <mat-chip class="task-chip" [selectable]="true" (click)="picker.open()">{{
-        task!.date | date
-      }}</mat-chip>
-    </mat-chip-list>
-    <mat-form-field style="width: 1px; height: 0; visibility: hidden; top: -38px;">
-      <input matInput [matDatepicker]="picker" [(ngModel)]="task!.date" (dateChange)="onDateChange($event, task!)"/>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
-  <div class="task-action-buttons">
-    <div class="task-action-buttons-grouped">
-      <button mat-button color="primary" (click)="onEditTask(task)">
-        EDIT
-      </button>
-      <button mat-button color="accent" (click)="onDeleteTask(task!._id)">
-        DELETE
-      </button>
+  <div class="task-container-top">
+    <div class="task-details">
+      <mat-radio-button
+        [name]="task!.title"
+        [value]="task!.title"
+        (change)="onCompleteTask(task)"
+        class="task-title"
+      >
+        {{ task!.title }}
+      </mat-radio-button>
+      <p class="task-description">{{ task!.description }}</p>
+      <mat-chip-list aria-label="date">
+        <mat-chip class="task-chip" [selectable]="true" (click)="picker.open()">{{
+          task!.date | date
+        }}</mat-chip>
+      </mat-chip-list>
+      <mat-form-field style="width: 1px; height: 0; visibility: hidden; top: -38px;">
+        <input matInput [matDatepicker]="picker" [(ngModel)]="task!.date" (dateChange)="onDateChange($event, task!)"/>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
     </div>
-    <mat-checkbox
-      *ngIf="task!.list !== mainListId"
-      labelPosition="before"
-      (change)="onChangeCheckBox($event.checked, task!)"
-      >MOVE TO DAILY</mat-checkbox
-    >
+    <div class="task-action-buttons">
+      <div class="task-action-buttons-grouped">
+        <button mat-button color="primary" (click)="onEditTask(task)">
+          EDIT
+        </button>
+        <button mat-button color="accent" (click)="onDeleteTask(task!._id)">
+          DELETE
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="task!.list !== mainListId" class="task-container-bottom">
+    <button mat-button  (click)="onMoveToDaily(task!)">
+      MOVE TO DAILY LIST
+    </button>
   </div>
 </div>
