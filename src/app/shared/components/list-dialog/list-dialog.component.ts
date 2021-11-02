@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { APIService } from '../../services/api.service';
+import { HandleServerErrorsService } from '../../services/handle-server-errors.service';
+import { ToastMessageService } from '../../services/toast-message.service';
 import { IList } from './../../../models';
 
 @Component({
@@ -13,7 +15,9 @@ export class ListDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ListDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public list: IList,
-    private service: APIService
+    private service: APIService,
+    private toastService: ToastMessageService,
+    private errorService: HandleServerErrorsService
   ) {
     if (!list._id) {
       this.title = 'New List';
@@ -39,7 +43,11 @@ export class ListDialogComponent implements OnInit {
             this.dialogRef.close();
           }
         },
-        (err) => {}
+        (err) => {
+          this.toastService.openSnackBar(
+            this.errorService.getServerErrorMessage(err)
+          );
+        }
       );
     } else {
       this.service
@@ -50,7 +58,11 @@ export class ListDialogComponent implements OnInit {
               this.dialogRef.close();
             }
           },
-          (err) => {}
+          (err) => {
+            this.toastService.openSnackBar(
+              this.errorService.getServerErrorMessage(err)
+            );
+          }
         );
     }
   }

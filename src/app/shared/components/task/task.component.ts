@@ -10,6 +10,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { ITask } from 'src/app/models';
 import { DailyTasksComponent } from 'src/app/pages/daily-tasks/daily-tasks.component';
+import { HandleServerErrorsService } from '../../services/handle-server-errors.service';
 import { APIService } from './../../services/api.service';
 import { ToastMessageService } from './../../services/toast-message.service';
 import { TaskDialogComponent } from './../task-dialog/task-dialog.component';
@@ -27,7 +28,8 @@ export class TaskComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private service: APIService,
-    private toastService: ToastMessageService
+    private toastService: ToastMessageService,
+    private errorService: HandleServerErrorsService
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +45,9 @@ export class TaskComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
       }
     );
   }
@@ -78,7 +82,9 @@ export class TaskComponent implements OnInit {
           }
         },
         (err) => {
-          console.log(err);
+          this.toastService.openSnackBar(
+            this.errorService.getServerErrorMessage(err)
+          );
         }
       );
     }
@@ -90,7 +96,11 @@ export class TaskComponent implements OnInit {
           this.mainListId = data._id;
         }
       },
-      (err) => {}
+      (err) => {
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
+      }
     );
   }
   onChangeCheckBox(checked: boolean, task: ITask) {
@@ -107,7 +117,9 @@ export class TaskComponent implements OnInit {
           }
         },
         (err) => {
-          console.log(err);
+          this.toastService.openSnackBar(
+            this.errorService.getServerErrorMessage(err)
+          );
         }
       );
     }
@@ -122,7 +134,9 @@ export class TaskComponent implements OnInit {
           }
         },
         (err) => {
-          console.log(err);
+          this.toastService.openSnackBar(
+            this.errorService.getServerErrorMessage(err)
+          );
         }
       );
     }

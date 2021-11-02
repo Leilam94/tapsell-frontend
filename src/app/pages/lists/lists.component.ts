@@ -6,6 +6,8 @@ import { TaskDialogComponent } from 'src/app/shared/components/task-dialog/task-
 import { APIService } from './../../shared/services/api.service';
 import { ListDialogComponent } from './../../shared/components/list-dialog/list-dialog.component';
 import { ListService } from './services/list.service';
+import { ToastMessageService } from 'src/app/shared/services/toast-message.service';
+import { HandleServerErrorsService } from 'src/app/shared/services/handle-server-errors.service';
 
 @Component({
   selector: 'app-lists',
@@ -21,8 +23,10 @@ export class ListsComponent implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private service: APIService,
+    private toastService: ToastMessageService,
+    private errorService: HandleServerErrorsService,
     private listService: ListService,
-    private router: Router
+    private router: Router,
   ) {
     this.route.params.subscribe((params) => {
       this.listID = params['list'];
@@ -39,7 +43,11 @@ export class ListsComponent implements OnInit {
           this.tasks = data.filter((task: ITask) => task.done !== true);
         }
       },
-      (err) => {}
+      (err) => {
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
+      }
     );
   }
 
@@ -67,6 +75,9 @@ export class ListsComponent implements OnInit {
         }
       },
       (err) => {
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
       }
     );
   }
@@ -78,7 +89,11 @@ export class ListsComponent implements OnInit {
           this.router.navigateByUrl('/');
         }
       },
-      (err) => {}
+      (err) => {
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
+      }
     );
   }
   onEditList() {

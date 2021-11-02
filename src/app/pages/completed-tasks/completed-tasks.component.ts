@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { APIService } from './../../shared/services/api.service';
 import { ITask } from 'src/app/models';
+import { ToastMessageService } from 'src/app/shared/services/toast-message.service';
+import { HandleServerErrorsService } from 'src/app/shared/services/handle-server-errors.service';
 
 @Component({
   selector: 'app-completed-tasks',
@@ -10,7 +12,11 @@ import { ITask } from 'src/app/models';
 export class CompletedTasksComponent implements OnInit {
   title = 'Completed Tasks';
   completedTasks: Array<ITask> = [];
-  constructor(private service: APIService) {}
+  constructor(
+    private service: APIService,
+    private toastService: ToastMessageService,
+    private errorService: HandleServerErrorsService
+    ) {}
 
   ngOnInit(): void {
     this.getTasks();
@@ -23,7 +29,11 @@ export class CompletedTasksComponent implements OnInit {
           this.completedTasks = data;
         }
       },
-      (err) => {}
+      (err) => {
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
+      }
     );
   }
 }

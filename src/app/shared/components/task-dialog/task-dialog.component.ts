@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { APIService } from './../../services/api.service';
 import { IList, ITask } from '../../../models';
+import { ToastMessageService } from '../../services/toast-message.service';
+import { HandleServerErrorsService } from '../../services/handle-server-errors.service';
 
 @Component({
   selector: 'app-task-dialog',
@@ -14,7 +16,9 @@ export class TaskDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public task: ITask,
-    private service: APIService
+    private service: APIService,
+    private toastService: ToastMessageService,
+    private errorService: HandleServerErrorsService
   ) {
     if (!task._id) {
       this.title = 'New Task';
@@ -43,7 +47,11 @@ export class TaskDialogComponent implements OnInit {
             this.dialogRef.close();
           }
         },
-        (err) => {}
+        (err) => {
+          this.toastService.openSnackBar(
+            this.errorService.getServerErrorMessage(err)
+          );
+        }
       );
     } else {
       this.service
@@ -54,7 +62,11 @@ export class TaskDialogComponent implements OnInit {
               this.dialogRef.close();
             }
           },
-          (err) => {}
+          (err) => {
+            this.toastService.openSnackBar(
+              this.errorService.getServerErrorMessage(err)
+            );
+          }
         );
     }
   }

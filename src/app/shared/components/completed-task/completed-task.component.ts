@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ITask } from 'src/app/models';
 import { APIService } from './../../services/api.service';
 import { ToastMessageService } from './../../services/toast-message.service';
+import { HandleServerErrorsService } from './../../services/handle-server-errors.service';
 
 @Component({
   selector: 'app-completed-task',
@@ -11,10 +12,11 @@ import { ToastMessageService } from './../../services/toast-message.service';
 export class CompletedTaskComponent implements OnInit {
   @Input() task?: ITask;
   @Output() getData = new EventEmitter<string>();
-  isLoading =false;
+  isLoading = false;
   constructor(
     private service: APIService,
-    private toastService: ToastMessageService
+    private toastService: ToastMessageService,
+    private errorService: HandleServerErrorsService
   ) {}
 
   ngOnInit(): void {}
@@ -29,12 +31,12 @@ export class CompletedTaskComponent implements OnInit {
               this.getData.next();
               this.toastService.openSnackBar('Task marked uncompleted');
             }, 1000);
-
-            console.log(res);
           }
         },
         (err) => {
-          console.log(err);
+          this.toastService.openSnackBar(
+            this.errorService.getServerErrorMessage(err)
+          );
         }
       );
     }
@@ -43,13 +45,13 @@ export class CompletedTaskComponent implements OnInit {
     this.service.delete(`api/tasks/${id}`).subscribe(
       (res) => {
         if (!res.error) {
-          // this.tableLoading = false;
-          console.log(res);
           this.getData.next();
         }
       },
       (err) => {
-        console.log(err);
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
       }
     );
   }

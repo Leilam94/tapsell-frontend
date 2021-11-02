@@ -4,6 +4,7 @@ import { ITask } from 'src/app/models';
 import { APIService } from './../../shared/services/api.service';
 import { ToastMessageService } from './../../shared/services/toast-message.service';
 import { TaskDialogComponent } from './../../shared/components/task-dialog/task-dialog.component';
+import { HandleServerErrorsService } from 'src/app/shared/services/handle-server-errors.service';
 
 @Component({
   selector: 'app-daily-tasks',
@@ -17,7 +18,8 @@ export class DailyTasksComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private service: APIService,
-    private toastService: ToastMessageService
+    private toastService: ToastMessageService,
+    private errorService: HandleServerErrorsService
   ) {}
   ngOnInit(): void {
     this.getTasks();
@@ -29,7 +31,11 @@ export class DailyTasksComponent implements OnInit {
           this.tasks = data.filter((task: ITask) => task.done !== true);
         }
       },
-      (err) => {}
+      (err) => {
+        this.toastService.openSnackBar(
+          this.errorService.getServerErrorMessage(err)
+        );
+      }
     );
   }
 
