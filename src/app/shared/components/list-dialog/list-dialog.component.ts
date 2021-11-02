@@ -31,6 +31,9 @@ export class ListDialogComponent implements OnInit {
   onCancleClick() {
     this.dialogRef.close();
   }
+  onCloseClick(){
+    this.dialogRef.close();
+  }
   onSaveClick() {
     const bodyParams = {
       title: this.list.title,

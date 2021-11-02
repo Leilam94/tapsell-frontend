@@ -1,5 +1,10 @@
 <div mat-dialog-content>
-  <p>{{ title }}</p>
+  <div class="title-container">
+    <p>{{ title }}</p>
+    <button mat-icon-button aria-label="close icon" (click)="onCloseClick()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
   <mat-form-field appearance="fill" class="form-field">
     <mat-label> title</mat-label>
     <input

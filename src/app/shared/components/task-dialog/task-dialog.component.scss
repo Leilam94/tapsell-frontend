@@ -1,6 +1,17 @@
-.form-field{
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  p {
+    font-size: 18px;
+  }
+  button {
+    color: #616161;
+  }
+}
+.form-field {
   width: 100%;
 }
-.action-buttons{
+.action-buttons {
   justify-content: flex-end;
 }
