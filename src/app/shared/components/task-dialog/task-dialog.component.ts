@@ -4,6 +4,7 @@ import { APIService } from './../../services/api.service';
 import { IList, ITask } from '../../../models';
 import { ToastMessageService } from '../../services/toast-message.service';
 import { HandleServerErrorsService } from '../../services/handle-server-errors.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task-dialog',
@@ -13,6 +14,7 @@ import { HandleServerErrorsService } from '../../services/handle-server-errors.s
 export class TaskDialogComponent implements OnInit {
   mainListId: string = '';
   title: string = '';
+  Title = new FormControl('', [Validators.required]);
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public task: ITask,

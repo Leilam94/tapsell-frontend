@@ -4,7 +4,7 @@ import { APIService } from '../../services/api.service';
 import { HandleServerErrorsService } from '../../services/handle-server-errors.service';
 import { ToastMessageService } from '../../services/toast-message.service';
 import { IList } from './../../../models';
-
+import { FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-list-dialog',
   templateUrl: './list-dialog.component.html',
@@ -12,6 +12,7 @@ import { IList } from './../../../models';
 })
 export class ListDialogComponent implements OnInit {
   title: string = '';
+  Title = new FormControl('', [Validators.required]);
   constructor(
     public dialogRef: MatDialogRef<ListDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public list: IList,
@@ -66,4 +67,5 @@ export class ListDialogComponent implements OnInit {
         );
     }
   }
+
 }

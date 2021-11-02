@@ -2,7 +2,13 @@
   <p>{{ title }}</p>
   <mat-form-field appearance="fill" class="form-field">
     <mat-label> title</mat-label>
-    <input matInput [(ngModel)]="task.title" cdkFocusInitial/>
+    <input
+      matInput
+      [(ngModel)]="task.title"
+      cdkFocusInitial
+      [formControl]="Title"
+    />
+    <mat-error *ngIf="Title.invalid"> You must enter a title</mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill" class="form-field">
     <mat-label>detail</mat-label>
@@ -24,5 +30,5 @@
 </div>
 <div mat-dialog-actions class="action-buttons">
   <button mat-button (click)="onCancleClick()">CANCLE</button>
-  <button mat-button (click)="onSaveClick()" cdkFocusInitial>SAVE</button>
+  <button mat-button (click)="onSaveClick()" cdkFocusInitial [disabled]="Title.invalid">SAVE</button>
 </div>
