@@ -1,4 +1,4 @@
-<mat-card class="page-container">
+<div class="page-container">
   <h1 class="page-title">{{ title }}</h1>
   <div *ngFor="let task of tasks">
     <app-task [task]="task" (getData)="getTasks()"> </app-task>
@@ -7,4 +7,4 @@
     <mat-icon aria-hidden="false" aria-label="add icon">add</mat-icon>
     NEW TASK
   </button>
-</mat-card>
+</div>
