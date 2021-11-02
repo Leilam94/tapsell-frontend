@@ -5,7 +5,7 @@ export interface IResult {
 export interface ITask {
   _id?: string;
   title: string;
-  date?: string;
+  date?: Date;
   description: string;
   done: boolean;
   list?: string;

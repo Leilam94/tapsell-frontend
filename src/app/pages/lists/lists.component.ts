@@ -43,7 +43,7 @@ export class ListsComponent implements OnInit {
     );
   }
 
-  onClickAddTask() {
+  onAddTask() {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '350px',
       data: {

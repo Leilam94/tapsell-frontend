@@ -1,6 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  enableProdMode,
+} from '@angular/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { ITask } from 'src/app/models';
+import { DailyTasksComponent } from 'src/app/pages/daily-tasks/daily-tasks.component';
 import { APIService } from './../../services/api.service';
 import { ToastMessageService } from './../../services/toast-message.service';
 import { TaskDialogComponent } from './../task-dialog/task-dialog.component';
@@ -13,7 +22,6 @@ import { TaskDialogComponent } from './../task-dialog/task-dialog.component';
 export class TaskComponent implements OnInit {
   @Input() task?: ITask;
   @Output() getData = new EventEmitter<string>();
-  subscription: any;
   isLoading = false;
   mainListId = '';
   constructor(
@@ -26,7 +34,7 @@ export class TaskComponent implements OnInit {
     this.getMainList();
   }
 
-  onDeleteTask(id: any) {
+  onDeleteTask(id?: string) {
     this.service.delete(`api/tasks/${id}`).subscribe(
       (res) => {
         if (!res.error) {
@@ -96,6 +104,21 @@ export class TaskComponent implements OnInit {
               this.getData.next();
               this.toastService.openSnackBar('Task moved successfully');
             }, 1000);
+          }
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
+  }
+  onDateChange(e:MatDatepickerInputEvent<Date>, task: ITask): void {
+    if(e.value){
+      const bodyParams = { ...task, date: e.value };
+      this.service.put<ITask>(`api/tasks/${task!._id}`, bodyParams).subscribe(
+        (res) => {
+          if (!res.error) {
+            console.log(res);
           }
         },
         (err) => {

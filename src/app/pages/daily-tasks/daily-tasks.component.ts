@@ -14,7 +14,6 @@ export class DailyTasksComponent implements OnInit {
   listID: string = '617e7a911ad6751354c24780';
   title: string = 'Daily Tasks';
   tasks: ITask[] = [];
-  subscription: any;
   constructor(
     public dialog: MatDialog,
     private service: APIService,

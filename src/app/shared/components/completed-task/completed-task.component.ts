@@ -39,7 +39,7 @@ export class CompletedTaskComponent implements OnInit {
       );
     }
   }
-  onDeleteTask(id: any) {
+  onDeleteTask(id?: string) {
     this.service.delete(`api/tasks/${id}`).subscribe(
       (res) => {
         if (!res.error) {
