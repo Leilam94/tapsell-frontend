@@ -26,6 +26,10 @@ export class DeleteDialogComponent implements OnInit {
     this.service.delete(`api/${this.data.type}/${this.data.id}`).subscribe(
       (res) => {
         if (!res.error) {
+          this.toastService.openSnackBar(
+            'Task removed successfully',
+            'success-snackbar'
+          );
         }
       },
       (err) => {

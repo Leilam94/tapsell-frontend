@@ -4,15 +4,18 @@ import { APIService } from '../../services/api.service';
 import { HandleServerErrorsService } from '../../services/handle-server-errors.service';
 import { ToastMessageService } from '../../services/toast-message.service';
 import { IList } from './../../../models';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-list-dialog',
   templateUrl: './list-dialog.component.html',
   styleUrls: ['./list-dialog.component.scss'],
 })
 export class ListDialogComponent implements OnInit {
-  title: string = '';
-  Title = new FormControl('', [Validators.required]);
+  formTitle: string = '';
+  form = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+  });
   constructor(
     public dialogRef: MatDialogRef<ListDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public list: IList,
@@ -20,24 +23,32 @@ export class ListDialogComponent implements OnInit {
     private toastService: ToastMessageService,
     private errorService: HandleServerErrorsService
   ) {
+    this.setValue(list);
     if (!list._id) {
-      this.title = 'New List';
+      this.formTitle = 'New List';
     } else {
-      this.title = 'Rename List';
+      this.formTitle = 'Rename List';
     }
   }
 
   ngOnInit(): void {}
+  get title() {
+    return this.form.get('title');
+  }
+  setValue(list: IList) {
+    this.form.setValue({
+      title: list.title,
+    });
+  }
   onCancleClick() {
     this.dialogRef.close();
   }
   onCloseClick(){
     this.dialogRef.close();
   }
-  onSaveClick() {
+  onSubmit() {
     const bodyParams = {
-      title: this.list.title,
-      date: this.list.date,
+      title: this.form.value['title'],
       isMain: false,
     };
     if (!this.list._id) {
@@ -45,6 +56,10 @@ export class ListDialogComponent implements OnInit {
         (data) => {
           if (!data.error) {
             this.dialogRef.close(data);
+            this.toastService.openSnackBar(
+              'List added successfully',
+              'success-snackbar'
+            );
           }
         },
         (err) => {
@@ -61,6 +76,10 @@ export class ListDialogComponent implements OnInit {
           (data) => {
             if (!data.error) {
               this.dialogRef.close(data);
+              this.toastService.openSnackBar(
+                'List edited successfully',
+                'success-snackbar'
+              );
             }
           },
           (err) => {

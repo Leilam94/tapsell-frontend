@@ -18,7 +18,7 @@ export class TaskDialogComponent implements OnInit {
   withSelectBox: boolean = false;
   form = new FormGroup({
     title: new FormControl('', [Validators.required]),
-    selectBox: new FormControl(null, [Validators.required]),
+    selectBox: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     date: new FormControl(''),
   });
@@ -65,18 +65,21 @@ export class TaskDialogComponent implements OnInit {
   }
   onSubmit() {
     const bodyParams = {
-      title:this.form.value['title'],
-      description:this.form.value['description'],
-      list:this.form.value['selectBox'],
-      date:this.form.value['date'],
+      title: this.form.value['title'],
+      description: this.form.value['description'],
+      list: this.form.value['selectBox'],
+      date: this.form.value['date'],
       done: false,
     };
     if (!this.task._id) {
-      console.log(bodyParams)
       this.service.post<ITask>('api/tasks', bodyParams).subscribe(
         (data) => {
           if (!data.error) {
             this.dialogRef.close(data);
+            this.toastService.openSnackBar(
+              'Task added successfully',
+              'success-snackbar'
+            );
           }
         },
         (err) => {
@@ -93,6 +96,10 @@ export class TaskDialogComponent implements OnInit {
           (data) => {
             if (!data.error) {
               this.dialogRef.close(data);
+              this.toastService.openSnackBar(
+                'Task edited successfully',
+                'success-snackbar'
+              );
             }
           },
           (err) => {

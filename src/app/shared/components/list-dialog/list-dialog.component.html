@@ -1,36 +1,33 @@
-<div mat-dialog-content>
-  <div class="title-container">
-    <p mat-dialog-title>{{ title }}</p>
-    <button mat-icon-button aria-label="close icon" (click)="onCloseClick()">
-      <mat-icon>close</mat-icon>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <div class="title-container">
+      <p mat-dialog-title>{{ formTitle }}</p>
+      <button mat-icon-button aria-label="close icon" (click)="onCloseClick()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label> title</mat-label>
+      <input matInput cdkFocusInitial formControlName="title" />
+      <mat-error *ngIf="title!.invalid"> You must enter a title</mat-error>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Set a date</mat-label>
+      <input matInput [matDatepicker]="picker" [value]="list.date" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field> -->
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-stroked-button (click)="onCancleClick()">CANCLE</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      cdkFocusInitial
+      [disabled]="title!.invalid"
+    >
+      SAVE
     </button>
   </div>
-  <mat-form-field appearance="fill" class="form-field">
-    <mat-label> title</mat-label>
-    <input
-      matInput
-      [(ngModel)]="list.title"
-      cdkFocusInitial
-      [formControl]="Title"
-    />
-    <mat-error *ngIf="Title.invalid"> You must enter a title</mat-error>
-  </mat-form-field>
-  <!-- <mat-form-field appearance="fill" class="form-field">
-    <mat-label>Set a date</mat-label>
-    <input matInput [matDatepicker]="picker" [value]="list.date" />
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field> -->
-</div>
-<div mat-dialog-actions class="action-buttons">
-  <button mat-stroked-button (click)="onCancleClick()">CANCLE</button>
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="onSaveClick()"
-    cdkFocusInitial
-    [disabled]="Title.invalid"
-  >
-    SAVE
-  </button>
-</div>
+</form>
