@@ -50,7 +50,7 @@ export class TaskComponent implements OnInit {
         title: task!.title,
         description: task!.description || '',
         list: task!.list,
-        date: task!.date || '',
+        date: task!.date,
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

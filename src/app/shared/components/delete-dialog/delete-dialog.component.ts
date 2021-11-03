@@ -15,7 +15,7 @@ export class DeleteDialogComponent implements OnInit {
     private service: APIService,
     private toastService: ToastMessageService,
     private errorService: HandleServerErrorsService,
-    @Inject(MAT_DIALOG_DATA) public data: {id:number, type:string},
+    @Inject(MAT_DIALOG_DATA) public data: { id: number; type: string }
   ) {}
 
   ngOnInit(): void {}

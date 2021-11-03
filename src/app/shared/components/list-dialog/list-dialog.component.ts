@@ -43,10 +43,11 @@ export class ListDialogComponent implements OnInit {
   onCancleClick() {
     this.dialogRef.close();
   }
-  onCloseClick(){
+  onCloseClick() {
     this.dialogRef.close();
   }
-  onSubmit() {
+  onSubmit(e: Event) {
+    e.preventDefault();
     const bodyParams = {
       title: this.form.value['title'],
       isMain: false,

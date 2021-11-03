@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppInfoService {
-
-  constructor() { }
+  constructor() {}
 
   public get baseAPI(): string {
     return 'http://localhost:3000';

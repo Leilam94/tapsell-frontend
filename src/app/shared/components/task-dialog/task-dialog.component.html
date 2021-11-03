@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit($event)">
   <div mat-dialog-content>
     <div class="title-container">
       <p mat-dialog-title>{{ formTitle }}</p>
@@ -8,11 +8,7 @@
     </div>
     <mat-form-field appearance="fill" class="form-field">
       <mat-label> title</mat-label>
-      <input
-        matInput
-        cdkFocusInitial
-        formControlName="title"
-      />
+      <input matInput cdkFocusInitial formControlName="title" />
       <mat-error *ngIf="title!.invalid"> You must enter a title</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
@@ -28,7 +24,7 @@
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>Set a date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="date"/>
+      <input matInput [matDatepicker]="picker" formControlName="date" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -43,7 +39,12 @@
     </mat-form-field>
   </div>
   <div mat-dialog-actions class="action-buttons">
-    <button mat-stroked-button (click)="onCancleClick()">CANCLE</button>
+    <button
+      mat-stroked-button
+      (click)="onCancleClick(); $event.preventDefault()"
+    >
+      CANCLE
+    </button>
     <button
       mat-raised-button
       type="submit"

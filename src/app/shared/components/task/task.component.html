@@ -10,7 +10,7 @@
         {{ task!.title }}
       </mat-radio-button>
       <p mat-subheading-2 class="task-description">{{ task!.description }}</p>
-      <div style="display: flex;">
+      <div style="display: flex">
         <mat-chip-list aria-label="date">
           <mat-chip
             class="task-chip"
@@ -20,7 +20,13 @@
           >
         </mat-chip-list>
         <mat-form-field
-          style="width: 1px; height: 0; visibility: hidden; top:-5px; left:-100px"
+          style="
+            width: 1px;
+            height: 0;
+            visibility: hidden;
+            top: -5px;
+            left: -100px;
+          "
         >
           <input
             matInput

@@ -36,7 +36,7 @@ export class SideNavBarComponent implements OnInit {
     private router: Router,
     private screen: ScreenSizeService
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 950px)');
+    this.mobileQuery = media.matchMedia('(max-width: 1030px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.subscription = this.listService.getLists().subscribe((lists) => {
@@ -71,7 +71,7 @@ export class SideNavBarComponent implements OnInit {
       }
     );
   }
-  onClickAddList() {
+  onAddList() {
     const dialogRef = this.dialog.open(ListDialogComponent, {
       width: '350px',
       data: {
@@ -91,7 +91,7 @@ export class SideNavBarComponent implements OnInit {
         title: '',
         description: '',
         list: '',
-        date:''
+        date:new Date()
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

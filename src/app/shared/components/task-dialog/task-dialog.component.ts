@@ -63,12 +63,13 @@ export class TaskDialogComponent implements OnInit {
   onCloseClick() {
     this.dialogRef.close();
   }
-  onSubmit() {
+  onSubmit(e: Event) {
+    e.preventDefault();
     const bodyParams = {
       title: this.form.value['title'],
       description: this.form.value['description'],
       list: this.form.value['selectBox'],
-      date: this.form.value['date'],
+      date: this.form.value['date'] || new Date(),
       done: false,
     };
     if (!this.task._id) {

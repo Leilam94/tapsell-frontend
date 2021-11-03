@@ -70,7 +70,7 @@ export class DailyTasksComponent implements OnInit {
         title: '',
         description: '',
         list: this.listID,
-        date:''
+        date: new Date()
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

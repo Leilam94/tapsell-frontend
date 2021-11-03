@@ -21,8 +21,6 @@ import { TaskSkeletonComponent } from './shared/components/task-skeleton/task-sk
 import { NoTasksComponent } from './shared/components/no-tasks/no-tasks.component';
 import { DeleteDialogComponent } from './shared/components/delete-dialog/delete-dialog.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +34,7 @@ import { DeleteDialogComponent } from './shared/components/delete-dialog/delete-
     ListDialogComponent,
     TaskSkeletonComponent,
     NoTasksComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,9 +44,9 @@ import { DeleteDialogComponent } from './shared/components/delete-dialog/delete-
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

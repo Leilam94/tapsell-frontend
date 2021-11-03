@@ -34,7 +34,10 @@ export class CompletedTaskComponent implements OnInit {
           if (!res.error) {
             setTimeout(() => {
               this.getData.next();
-              this.toastService.openSnackBar('Task marked uncompleted','success-snackbar');
+              this.toastService.openSnackBar(
+                'Task marked uncompleted',
+                'success-snackbar'
+              );
             }, 1000);
           }
         },

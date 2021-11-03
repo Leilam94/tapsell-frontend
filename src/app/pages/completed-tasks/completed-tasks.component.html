@@ -1,14 +1,21 @@
 <div class="page-container">
   <h1 mat-headline>{{ title }}</h1>
   <ng-container *ngIf="!isLoading; else loading">
-    <div *ngFor="let task of completedTasks">
-      <app-completed-task
-        [task]="task"
-        (getData)="getTasks()"
-      ></app-completed-task>
-    </div>
+    <ng-container *ngIf="completedTasks.length > 0; else noTasks">
+      <div *ngFor="let task of completedTasks">
+        <app-completed-task
+          [task]="task"
+          (getData)="getTasks()"
+        ></app-completed-task>
+      </div>
+    </ng-container>
+    <ng-template #noTasks>
+      <app-no-tasks></app-no-tasks>
+    </ng-template>
   </ng-container>
   <ng-template #loading>
-    <app-task-skeleton *ngFor="let number of [0,1,2,3,4]"></app-task-skeleton>
+    <app-task-skeleton
+      *ngFor="let number of [0, 1, 2, 3, 4]"
+    ></app-task-skeleton>
   </ng-template>
 </div>

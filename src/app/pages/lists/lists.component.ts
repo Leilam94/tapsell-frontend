@@ -66,7 +66,7 @@ export class ListsComponent implements OnInit {
         title: '',
         description: '',
         list: this.listID,
-        date:''
+        date: new Date(),
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -96,11 +96,11 @@ export class ListsComponent implements OnInit {
       width: '350px',
       data: {
         id: this.listID,
-        type: 'lists'
+        type: 'lists',
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      if (result){
+      if (result) {
         this.listService.setLists();
         this.router.navigateByUrl('/');
       }
