@@ -4,6 +4,8 @@ import { APIService } from './../../services/api.service';
 import { ToastMessageService } from './../../services/toast-message.service';
 import { HandleServerErrorsService } from './../../services/handle-server-errors.service';
 import { ScreenSizeService } from './../../services/screen-size.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-completed-task',
@@ -18,7 +20,8 @@ export class CompletedTaskComponent implements OnInit {
     private service: APIService,
     private toastService: ToastMessageService,
     private errorService: HandleServerErrorsService,
-    private screen: ScreenSizeService
+    private screen: ScreenSizeService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}
@@ -31,34 +34,36 @@ export class CompletedTaskComponent implements OnInit {
           if (!res.error) {
             setTimeout(() => {
               this.getData.next();
-              this.toastService.openSnackBar('Task marked uncompleted');
+              this.toastService.openSnackBar('Task marked uncompleted','success-snackbar');
             }, 1000);
           }
         },
         (err) => {
           this.toastService.openSnackBar(
-            this.errorService.getServerErrorMessage(err)
+            this.errorService.getServerErrorMessage(err),
+            'error-snackbar'
           );
         }
       );
     }
   }
   onDeleteTask(id?: string) {
-    this.service.delete(`api/tasks/${id}`).subscribe(
-      (res) => {
-        if (!res.error) {
-          this.getData.next();
-        }
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '350px',
+      data: {
+        id: id,
+        type: 'tasks',
       },
-      (err) => {
-        this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
-        );
-      }
-    );
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.getData.next();
+    });
   }
   isMobileScreen() {
-    if (this.screen.sizes['screen-x-small'] || this.screen.sizes['screen-small']) {
+    if (
+      this.screen.sizes['screen-x-small'] ||
+      this.screen.sizes['screen-small']
+    ) {
       return true;
     }
     return false;

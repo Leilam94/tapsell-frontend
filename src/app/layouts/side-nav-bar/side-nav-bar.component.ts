@@ -65,7 +65,8 @@ export class SideNavBarComponent implements OnInit {
       },
       (err) => {
         this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
+          this.errorService.getServerErrorMessage(err),
+          'error-snackbar'
         );
       }
     );
@@ -90,6 +91,7 @@ export class SideNavBarComponent implements OnInit {
         title: '',
         description: '',
         list: '',
+        date:''
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

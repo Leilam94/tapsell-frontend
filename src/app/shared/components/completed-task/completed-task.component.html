@@ -2,7 +2,10 @@
   <div class="task-details">
     <div class="task-details-icon">
       <ng-container *ngIf="!isLoading; else loading">
-        <mat-icon  style="color:#607d8b" aria-hidden="false" aria-label="done icon"
+        <mat-icon
+          style="color: #607d8b"
+          aria-hidden="false"
+          aria-label="done icon"
           >done</mat-icon
         >
       </ng-container>
@@ -20,6 +23,23 @@
   </div>
   <div class="task-action-buttons">
     <button
+      *ngIf="!isMobileScreen()"
+      mat-button
+      color="primary"
+      (click)="onMoveBackToUncomplete(task)"
+    >
+      MARK UNCOMPLETE
+    </button>
+    <button
+      *ngIf="!isMobileScreen()"
+      mat-button
+      color="warn"
+      (click)="onDeleteTask(task!._id)"
+    >
+      DELETE
+    </button>
+    <button
+      *ngIf="isMobileScreen()"
       mat-icon-button
       [matMenuTriggerFor]="menu"
       aria-label="menu icon"

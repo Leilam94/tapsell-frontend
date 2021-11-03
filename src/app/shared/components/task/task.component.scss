@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 16px;
-  padding: 32px;
-  padding-bottom: 0;
+  padding: 24px;
   border: 1px solid rgb(231, 231, 231);
   border-radius: 8px;
   -webkit-border-radius: 8px;
@@ -15,11 +14,13 @@
     justify-content: space-between;
   }
   &-bottom {
+    margin-top: 16px;
     display: flex;
     justify-content: flex-end;
     border-top: 1px solid rgb(231, 231, 231);
-    padding: 8px;
+    padding: 24px;
     padding-right: 0;
+    padding-bottom: 0;
   }
 }
 .task-action-buttons {
@@ -37,7 +38,7 @@
 .task-description {
   margin-left: 32px;
   margin-top: 8px;
-  margin-bottom: 32px !important;
+  margin-bottom: 16px !important;
 }
 .task-chip {
   margin-left: 32px !important;

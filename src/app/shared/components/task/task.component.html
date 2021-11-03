@@ -10,29 +10,48 @@
         {{ task!.title }}
       </mat-radio-button>
       <p mat-subheading-2 class="task-description">{{ task!.description }}</p>
-      <mat-chip-list aria-label="date">
-        <mat-chip
-          class="task-chip"
-          [selectable]="true"
-          (click)="picker.open()"
-          >{{ task!.date | date }}</mat-chip
+      <div style="display: flex;">
+        <mat-chip-list aria-label="date">
+          <mat-chip
+            class="task-chip"
+            [selectable]="true"
+            (click)="picker.open()"
+            >{{ task!.date | date }}</mat-chip
+          >
+        </mat-chip-list>
+        <mat-form-field
+          style="width: 1px; height: 0; visibility: hidden; top:-5px; left:-100px"
         >
-      </mat-chip-list>
-      <mat-form-field
-        style="width: 1px; height: 0; visibility: hidden; top: -38px"
-      >
-        <input
-          matInput
-          [matDatepicker]="picker"
-          [(ngModel)]="task!.date"
-          (dateChange)="onDateChange($event, task!)"
-        />
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [(ngModel)]="task!.date"
+            (dateChange)="onDateChange($event, task!)"
+          />
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
     </div>
     <div class="task-action-buttons">
       <div class="task-action-buttons-grouped">
         <button
+          *ngIf="!isMobileScreen()"
+          mat-button
+          color="primary"
+          (click)="onEditTask(task)"
+        >
+          EDIT
+        </button>
+        <button
+          *ngIf="!isMobileScreen()"
+          mat-button
+          color="warn"
+          (click)="onDeleteTask(task!._id)"
+        >
+          DELETE
+        </button>
+        <button
+          *ngIf="isMobileScreen()"
           mat-icon-button
           [matMenuTriggerFor]="menu"
           aria-label="menu icon"
@@ -54,8 +73,13 @@
     </div>
   </div>
   <div *ngIf="task!.list !== mainListId" class="task-container-bottom">
-    <button mat-button (click)="onMoveToDaily(task!)">
-      MOVE TO DAILY LIST
-    </button>
+    <ng-container *ngIf="!isMoving; else moving">
+      <button mat-button (click)="onMoveToDaily(task!)">
+        MOVE TO DAILY LIST
+      </button>
+    </ng-container>
+    <ng-template #moving>
+      <mat-spinner diameter="20"></mat-spinner>
+    </ng-template>
   </div>
 </div>

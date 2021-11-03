@@ -19,6 +19,7 @@ export class TaskComponent implements OnInit {
   @Input() mainListId?: string;
   @Output() getData = new EventEmitter<string>();
   isLoading = false;
+  isMoving = false;
   constructor(
     public dialog: MatDialog,
     private service: APIService,
@@ -34,7 +35,7 @@ export class TaskComponent implements OnInit {
       width: '350px',
       data: {
         id: id,
-        type: 'tasks'
+        type: 'tasks',
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -47,9 +48,9 @@ export class TaskComponent implements OnInit {
       data: {
         _id: task!._id,
         title: task!.title,
-        description: task!.description,
+        description: task!.description || '',
         list: task!.list,
-        date: task!.date,
+        date: task!.date || '',
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -66,13 +67,17 @@ export class TaskComponent implements OnInit {
           if (!res.error) {
             setTimeout(() => {
               this.getData.next();
-              this.toastService.openSnackBar('Task Completed');
+              this.toastService.openSnackBar(
+                'Task Completed',
+                'success-snackbar'
+              );
             }, 1000);
           }
         },
         (err) => {
           this.toastService.openSnackBar(
-            this.errorService.getServerErrorMessage(err)
+            this.errorService.getServerErrorMessage(err),
+            'error-snackbar'
           );
         }
       );
@@ -80,19 +85,25 @@ export class TaskComponent implements OnInit {
   }
 
   onMoveToDaily(task: ITask) {
+    this.isMoving = true;
     const bodyParams = { ...task, list: this.mainListId };
     this.service.put<ITask>(`api/tasks/${task!._id}`, bodyParams).subscribe(
       (res) => {
         if (!res.error) {
           setTimeout(() => {
             this.getData.next();
-            this.toastService.openSnackBar('Task moved successfully');
+            this.isMoving = false;
+            this.toastService.openSnackBar(
+              'Task moved successfully',
+              'success-snackbar'
+            );
           }, 1000);
         }
       },
       (err) => {
         this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
+          this.errorService.getServerErrorMessage(err),
+          'error-snackbar'
         );
       }
     );
@@ -103,12 +114,16 @@ export class TaskComponent implements OnInit {
       this.service.put<ITask>(`api/tasks/${task!._id}`, bodyParams).subscribe(
         (res) => {
           if (!res.error) {
-            console.log(res);
+            this.toastService.openSnackBar(
+              'Date changed successfully',
+              'success-snackbar'
+            );
           }
         },
         (err) => {
           this.toastService.openSnackBar(
-            this.errorService.getServerErrorMessage(err)
+            this.errorService.getServerErrorMessage(err),
+            'error-snackbar'
           );
         }
       );

@@ -52,7 +52,8 @@ export class ListsComponent implements OnInit {
       },
       (err) => {
         this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
+          this.errorService.getServerErrorMessage(err),
+          'error-snackbar'
         );
       }
     );
@@ -65,6 +66,7 @@ export class ListsComponent implements OnInit {
         title: '',
         description: '',
         list: this.listID,
+        date:''
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -83,7 +85,8 @@ export class ListsComponent implements OnInit {
       },
       (err) => {
         this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
+          this.errorService.getServerErrorMessage(err),
+          'error-snackbar'
         );
       }
     );
@@ -128,7 +131,8 @@ export class ListsComponent implements OnInit {
       },
       (err) => {
         this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
+          this.errorService.getServerErrorMessage(err),
+          'error-snackbar'
         );
       }
     );

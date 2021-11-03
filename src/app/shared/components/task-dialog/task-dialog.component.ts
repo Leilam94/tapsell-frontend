@@ -4,8 +4,7 @@ import { APIService } from './../../services/api.service';
 import { ITask } from '../../../models';
 import { ToastMessageService } from '../../services/toast-message.service';
 import { HandleServerErrorsService } from '../../services/handle-server-errors.service';
-import { FormControl, Validators } from '@angular/forms';
-import { IList } from 'src/app/models';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task-dialog',
@@ -14,11 +13,15 @@ import { IList } from 'src/app/models';
 })
 export class TaskDialogComponent implements OnInit {
   mainListId: string = '';
-  title: string = '';
+  formTitle: string = '';
   options: Array<ITask> = [];
   withSelectBox: boolean = false;
-  SelectBox = new FormControl('', [Validators.required]);
-  Title = new FormControl('', [Validators.required]);
+  form = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    selectBox: new FormControl(null, [Validators.required]),
+    description: new FormControl(''),
+    date: new FormControl(''),
+  });
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public task: ITask,
@@ -26,10 +29,11 @@ export class TaskDialogComponent implements OnInit {
     private toastService: ToastMessageService,
     private errorService: HandleServerErrorsService
   ) {
+    this.setValue(task);
     if (!task._id) {
-      this.title = 'New Task';
+      this.formTitle = 'New Task';
     } else {
-      this.title = 'Edit Task';
+      this.formTitle = 'Edit Task';
     }
     if (!task.list) {
       this.withSelectBox = true;
@@ -38,22 +42,37 @@ export class TaskDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+  get title() {
+    return this.form.get('title');
+  }
+  get selectBox() {
+    return this.form.get('selectBox');
+  }
 
+  setValue(task: ITask) {
+    this.form.setValue({
+      title: task.title,
+      description: task.description,
+      date: task.date,
+      selectBox: task.list,
+    });
+  }
   onCancleClick() {
     this.dialogRef.close();
   }
-  onCloseClick(){
+  onCloseClick() {
     this.dialogRef.close();
   }
-  onSaveClick() {
+  onSubmit() {
     const bodyParams = {
-      title: this.task.title,
-      description: this.task.description,
+      title:this.form.value['title'],
+      description:this.form.value['description'],
+      list:this.form.value['selectBox'],
+      date:this.form.value['date'],
       done: false,
-      list: this.task.list,
-      date: this.task.date,
     };
     if (!this.task._id) {
+      console.log(bodyParams)
       this.service.post<ITask>('api/tasks', bodyParams).subscribe(
         (data) => {
           if (!data.error) {
@@ -62,7 +81,8 @@ export class TaskDialogComponent implements OnInit {
         },
         (err) => {
           this.toastService.openSnackBar(
-            this.errorService.getServerErrorMessage(err)
+            this.errorService.getServerErrorMessage(err),
+            'error-snackbar'
           );
         }
       );
@@ -77,7 +97,8 @@ export class TaskDialogComponent implements OnInit {
           },
           (err) => {
             this.toastService.openSnackBar(
-              this.errorService.getServerErrorMessage(err)
+              this.errorService.getServerErrorMessage(err),
+              'error-snackbar'
             );
           }
         );
@@ -92,7 +113,8 @@ export class TaskDialogComponent implements OnInit {
       },
       (err) => {
         this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
+          this.errorService.getServerErrorMessage(err),
+          'error-snackbar'
         );
       }
     );

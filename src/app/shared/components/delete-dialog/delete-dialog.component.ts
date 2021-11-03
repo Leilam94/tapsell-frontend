@@ -30,7 +30,8 @@ export class DeleteDialogComponent implements OnInit {
       },
       (err) => {
         this.toastService.openSnackBar(
-          this.errorService.getServerErrorMessage(err)
+          this.errorService.getServerErrorMessage(err),
+          'error-snackbar'
         );
       }
     );
